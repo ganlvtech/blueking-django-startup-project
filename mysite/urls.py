@@ -1,4 +1,4 @@
-"""mysite URL Configuration
+"""djangotest URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.8/topics/http/urls/
@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from . import views, admin as myadmin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/init$', myadmin.init),
+    url(r'^pyinfo$', views.pyinfo),
+    url(r'^$', views.index),
 ]
