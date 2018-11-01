@@ -3,17 +3,17 @@
 The MIT License (MIT)
 Copyright (c) 2018 Ganlv
 
+Usage
+
 ```bash
 django-admin startproject mysite
 cd mysite/
 wget https://raw.githubusercontent.com/ganlvtech/blueking-django-startup-project/master/settings.py
 ```
 
-Change `manage.py`
+Change `manage.py` `DJANGO_SETTINGS_MODULE` value `mysite.settings` to `settings`
 
-```python
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
-```
+Change `from mysite.settings import *` `mysite` to `yoursite`
 """
 
 import os

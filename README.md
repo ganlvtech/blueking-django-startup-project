@@ -1,6 +1,14 @@
 # A Django Startup Project For Tencent Blueking
 
+A Simplified Django Settings For Tencent Blueking
+
 [Tencent Blueking Cloud Campus Version Developer Center](https://bk.tencent.com/campus/developer-center/apps/)
+
+You may find that Blueking's default Django project has too many unused things and difficult to learn.
+
+The repo gives you a `settings.py`. It will make a pure django project runs on Blueking Cloud Platform.
+
+You can also clone this repo as a startup project or demo project. But what you may need is only that `settings.py`.
 
 ## Getting started
 
@@ -41,6 +49,21 @@
     ```bash
     pip install PyMySQL
     ```
+
+## Run This Demo Project
+
+```bash
+git clone https://github.com/ganlvtech/blueking-django-startup-project.git
+pip install -r requirements.txt
+pip install PyMySQL
+```
+
+Edit `mysite/settings.py` and `mysite/secrets.py`.
+
+```bash
+python manage.py migrate
+python manage.py runserver
+```
 
 ## About Blueking Platform
 
