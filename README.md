@@ -73,9 +73,9 @@ You can do everything you want.
 
 There must be a `settings.py` in root directory, because `DJANGO_SETTINGS_MODULE` is set to `settings` from container's environment variables.
 
-Blueking Django Framework provide lots of modules helping DevOps, such as traffic analyser, mailer, sms sender, logger, QQ login, permission control and Mako template engine. They are to heavy. A normal web application may not need them.
+Blueking Django Framework provide lots of modules helping DevOps, such as traffic analyser, mailer, sms sender, logger, QQ login, permission control and Mako template engine. They are too heavy. A normal web application may not need them.
 
-If your are new to Django, this simple settings.py won't make you confused. Just adding one file to your project makes Django official tutorial available for Blueking platform. Hope this could help you.
+If your are new to Django, this simple `settings.py` won't make you confused. Just adding one file to your project makes Django official tutorial available for Blueking platform. Hope this could help you.
 
 You can write them or migrate them by yourself when you are good enough in Django programming.
 
