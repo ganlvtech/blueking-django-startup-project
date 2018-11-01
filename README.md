@@ -4,6 +4,8 @@ A Simplified Django Settings For Tencent Blueking
 
 [Tencent Blueking Cloud Campus Version Developer Center](https://bk.tencent.com/campus/developer-center/apps/)
 
+Online demos: [Home](https://django.test.qcloudapps.com/), [pyinfo](https://django.test.qcloudapps.com/pyinfo/), [Admin](https://django.test.qcloudapps.com/admin/).
+
 You may find that Blueking's default Django project has too many unused things and difficult to learn.
 
 The repo gives you a `settings.py`. It will make a pure django project runs on Blueking Cloud Platform.
