@@ -1,6 +1,7 @@
 import django
 import os
 import random
+import re
 import string
 from django.conf import settings
 from django.core.management import execute_from_command_line
@@ -21,7 +22,14 @@ def index(request):
 
 
 def pyinfo(request):
-    return HttpResponse(my_pyinfo.pyinfo())
+    html = my_pyinfo.pyinfo()
+
+    if request.GET.get('password') != secrets.PYINFO_PASSWORD:
+        html = re.sub('''(BK_APP_PWD</td><td.*?>)(.*?)(</td>)''', '\\1***\\3', html)
+        html = re.sub('''(amqp://.*?:)(.*?)(@)''', '\\1***\\3', html)
+        html = re.sub('''(BK_SECRET_KEY</td><td.*?>)(.*?)(</td>)''', '\\1***\\3', html)
+
+    return HttpResponse(html)
 
 
 def admin_init(request):
