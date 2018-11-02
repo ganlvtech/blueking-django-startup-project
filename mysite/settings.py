@@ -128,5 +128,6 @@ CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
 
 INSTALLED_APPS += (
-    'myapp',
+    'home',
+    'celery_test',
 )

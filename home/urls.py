@@ -15,12 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-import home.urls
-import celery_test.urls
+from . import views
 
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^celery/', include(celery_test.urls)),
-    url(r'^', include(home.urls)),
+    url(r'^admin/init/$', views.admin_init),
+    url(r'^admin/db/reset/$', views.admin_db_reset),
+    url(r'^pyinfo/$', views.pyinfo),
+    url(r'^$', views.index),
 ]
