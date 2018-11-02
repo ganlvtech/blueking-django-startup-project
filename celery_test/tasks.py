@@ -8,8 +8,3 @@ def add():
     counter.value += 1
     counter.save()
     return counter.value
-
-
-@shared_task
-def hello():
-    return 'Hello, world!'
