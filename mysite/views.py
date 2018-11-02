@@ -5,6 +5,7 @@ import re
 import string
 from django.conf import settings
 from django.core.management import execute_from_command_line
+from django.middleware.csrf import get_token
 from django.db import connection
 from django.http.response import HttpResponse
 from django.utils.html import escape
@@ -52,7 +53,16 @@ def admin_init(request):
 
 
 def clear_db(request):
-    if request.GET.get('password') != secrets.RESET_PASSWORD:
+    if request.method == 'GET':
+        return HttpResponse("""
+        <form method="POST">
+            <input type="hidden" name="csrfmiddlewaretoken" value="%s">
+            <input type="text" name="password">
+            <input type="submit">
+        </form>
+        """ % (get_token(request)))
+
+    if request.POST.get('password') != secrets.RESET_PASSWORD:
         return HttpResponse("Password wrong!")
 
     with connection.cursor() as cursor:
