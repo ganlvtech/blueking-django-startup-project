@@ -69,6 +69,43 @@ python manage.py migrate
 python manage.py runserver
 ```
 
+### Use Celery
+
+```bash
+pip install celery==3.1.18
+pip install django-celery==3.2.1
+```
+
+You can see the following lines at the end of `mysite/settings.py`.
+
+```python
+import djcelery  # NOQA
+djcelery.setup_loader()
+INSTALLED_APPS += ('djcelery',)
+BROKER_URL = 'django://'
+INSTALLED_APPS += ('kombu.transport.django',)
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+```
+
+And then run migration.
+
+```bash
+python manage.py migrate
+```
+
+Start celery workers and celery beat
+
+```bash
+python manage.py celery worker
+python manage.py celery beat
+```
+
+> `celery beat` loads periodic tasks from database and sends the tasks to worker.
+>
+> Celery beat doesn't do the work itself. So even if you only need periodic task, you must start one worker at least.
+>
+> If you don't need periodic task, remove `CELERYBEAT_SCHEDULER` from `settings.py`.
+
 ## About Blueking Platform
 
 It's just a Django Docker container!

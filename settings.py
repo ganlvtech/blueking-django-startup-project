@@ -34,6 +34,7 @@ if WSGI_ENV.endswith('production'):
             'NAME': os.environ.get('BK_APP_CODE', ''),
         },
     }
+    BROKER_URL = os.environ.get('BK_BROKER_URL', '')
     STATIC_URL = os.environ.get('BK_STATIC_URL', '/static/')
     STATICFILES_DIRS = ()
 elif WSGI_ENV.endswith('testing'):
@@ -50,6 +51,7 @@ elif WSGI_ENV.endswith('testing'):
             'NAME': os.environ.get('BK_APP_CODE', ''),
         },
     }
+    BROKER_URL = os.environ.get('BK_BROKER_URL', '')
     STATIC_URL = os.environ.get('BK_STATIC_URL', '/static/')
     STATICFILES_DIRS = ()
 else:

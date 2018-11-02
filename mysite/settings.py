@@ -110,3 +110,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# djcelery
+# http://docs.celeryproject.org/en/3.1/django/first-steps-with-django.html
+import djcelery  # NOQA
+djcelery.setup_loader()
+INSTALLED_APPS += ('djcelery',)
+# CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+# Django DB broker
+BROKER_URL = 'django://'
+INSTALLED_APPS += ('kombu.transport.django',)
+# Redis broker
+# BROKER_URL = 'redis://localhost'
+# Celery beat periodic tasks
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+
+
+INSTALLED_APPS += (
+    'myapp',
+)
