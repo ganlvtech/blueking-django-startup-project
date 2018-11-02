@@ -12,7 +12,7 @@ The repo gives you a `settings.py`. It will make a pure django project runs on B
 
 You can also clone this repo as a startup project or demo project. But what you may need is only that `settings.py`.
 
-## Getting started
+## Getting Started
 
 1. Create a new django project
 
@@ -158,7 +158,7 @@ See [pyinfo].
 
 ### Notes
 
-`setuptools` is at version `11`. Some packages (e.g. `PyMySQL`) require `setuptools` version `30`. But the auto deploy script won't update it, so PyMySQL cannot be easily installed.
+`setuptools` is at version `11`. Some packages (e.g. `PyMySQL`) require `setuptools` version `30`. But the auto deploy script won't update `setuptools`. So PyMySQL cannot be easily installed.
 
 ## LICENSE
 
