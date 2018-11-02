@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^admin/init/$', views.admin_init),
     url(r'^admin/reset/$', views.clear_db),
     url(r'^pyinfo/$', views.pyinfo),
+    url(r'^version/$', views.version),
     url(r'^$', views.index),
 ]

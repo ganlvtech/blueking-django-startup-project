@@ -1,4 +1,5 @@
 import django
+import markdown
 import os
 import random
 import re
@@ -19,6 +20,26 @@ def random_password():
 
 
 def index(request):
+    filename = os.path.join(os.path.dirname(
+        os.path.dirname(os.path.abspath(__file__))), 'README.md')
+    with open(filename, 'r') as f:
+        data = f.read()
+    print(data)
+    html = markdown.markdown(data, extensions=['fenced_code', 'tables'])
+    html = r"""
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sindresorhus/github-markdown-css/github-markdown.css">
+    <style>
+        .markdown-body {
+            margin: 0 auto;
+            width: 980px;
+            max-width: 100%;
+        }
+    </style>
+    <div class="markdown-body">""" + html + '</div>'
+    return HttpResponse(html)
+
+
+def version(request):
     return HttpResponse("Hello, Django %s!" % (django.get_version()))
 
 
@@ -26,9 +47,9 @@ def pyinfo(request):
     html = my_pyinfo.pyinfo()
 
     if request.GET.get('password') != secrets.PYINFO_PASSWORD:
-        html = re.sub('''(BK_APP_PWD</td><td.*?>)(.*?)(</td>)''', '\\1***\\3', html)
-        html = re.sub('''(amqp://.*?:)(.*?)(@)''', '\\1***\\3', html)
-        html = re.sub('''(BK_SECRET_KEY</td><td.*?>)(.*?)(</td>)''', '\\1***\\3', html)
+        html = re.sub(r'(BK_APP_PWD</td><td.*?>)(.*?)(</td>)', '\\1***\\3', html)
+        html = re.sub(r'(amqp://.*?:)(.*?)(@)', '\\1***\\3', html)
+        html = re.sub(r'(BK_SECRET_KEY</td><td.*?>)(.*?)(</td>)', '\\1***\\3', html)
 
     return HttpResponse(html)
 
@@ -68,7 +89,7 @@ def clear_db(request):
     with connection.cursor() as cursor:
         cursor.execute("SHOW TABLES")
         tables = [cols[0] for cols in cursor.fetchall()]
-        
+
         cursor.execute("SET FOREIGN_KEY_CHECKS = 0")
         for table in tables:
             cursor.execute("DROP TABLE `%s`" % (table))
