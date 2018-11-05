@@ -4,7 +4,17 @@ A Simplified Django Settings For Tencent Blueking
 
 [Tencent Blueking Cloud Campus Version Developer Center][blueking-campus]
 
-Online demos: [Home], [pyinfo], [Admin].
+Online demos:
+
+* [Home Page][home]
+* [System Infomation][pyinfo]
+* [A files explorer][files]
+* [Static files][static-files]
+* [A counter using django celery that increases every minutes][celery]
+* [increase the counter][celery-add]
+* [Django Admin][admin]
+* [Django Admin init][admin-init]
+* [Database reset][admin-db-reset]
 
 You may find that Blueking's default Django project has too many unused things and difficult to learn.
 
@@ -176,7 +186,13 @@ furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in
 all copies or substantial portions of the Software.
 
-[Home]: https://django.test.qcloudapps.com/
+[home]: https://django.test.qcloudapps.com/
 [pyinfo]: https://django.test.qcloudapps.com/pyinfo/
-[Admin]: https://django.test.qcloudapps.com/admin/
+[files]: https://django.test.qcloudapps.com/files/
+[static-files]: https://django.test.qcloudapps.com/static/index.html
+[celery]: https://django.test.qcloudapps.com/celery/
+[celery-add]: https://django.test.qcloudapps.com/celery/add/
+[admin]: https://django.test.qcloudapps.com/admin/
+[admin-init]: https://django.test.qcloudapps.com/admin/init/
+[admin-db-reset]: https://django.test.qcloudapps.com/admin/db/reset/
 [blueking-campus]: https://bk.tencent.com/campus/developer-center/apps/

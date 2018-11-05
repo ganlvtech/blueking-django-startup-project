@@ -1,0 +1,23 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>File Size</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for file in files %}
+            <tr>
+                <td><a href="?path={{ file.full_path }}">{{ file.name }}{% if file.is_dir %}/{% endif %}</a></td>
+                <td>{{ file.size }}</td>
+                <td>{{ file.date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
