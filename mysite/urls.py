@@ -15,12 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-import home.urls
-import celery_test.urls
 
+import celery_test.urls
+import home.urls
+import myutils.urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^celery/', include(celery_test.urls)),
+    url(r'^', include(myutils.urls)),
     url(r'^', include(home.urls)),
 ]
