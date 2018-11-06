@@ -3,4 +3,4 @@ secrets.py
 .svn
 *.sqlite3
 *.pid
-static
+/static
