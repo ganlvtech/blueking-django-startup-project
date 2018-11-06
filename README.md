@@ -11,10 +11,11 @@ Online demos:
 * [A files explorer][files]
 * [Static files][static-files]
 * [A counter using django celery that increases every minutes][celery]
-* [increase the counter][celery-add]
-* [Django Admin][admin]
-* [Django Admin init][admin-init]
-* [Database reset][admin-db-reset]
+* [Increase the counter manually][celery-add]
+* [Django Admin Site][admin]
+* [Django manage][manage]
+* [Django manage create superuser][create-superuser]
+* [Reset database][reset-db]
 
 You may find that Blueking's default Django project has too many unused things and difficult to learn.
 
@@ -26,43 +27,36 @@ You can also clone this repo as a startup project or demo project. But what you 
 
 1. Create a new django project
 
-    ```bash
-    django-admin startproject mysite
-    cd mysite/
-    ```
+        django-admin startproject mysite
+        cd mysite/
 
 2. Get this `settings.py` script
 
-    ```bash
-    wget https://raw.githubusercontent.com/ganlvtech/blueking-django-startup-project/master/settings.py
-    ```
+        wget https://raw.githubusercontent.com/ganlvtech/blueking-django-startup-project/master/settings.py
+
 
 3. Change `manage.py` `DJANGO_SETTINGS_MODULE`
 
-    ```python
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
-    ```
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 
 4. Change `settings.py` `mysite` to `yoursite`
 
-    ```python
-    from mysite.settings import *
-    ```
+        from mysite.settings import *
 
 5. Run server
 
-    ```bash
-    python manage.py migrate
-    python manage.py runserver
-    ```
+        python manage.py migrate
+        python manage.py runserver
 
 6. You don't need to install `MySQL-python` locally. Try `PyMySQL`, which can be easily installed with pip.
 
-    ```bash
-    pip install PyMySQL
-    ```
+        pip install PyMySQL
 
 7. If you need to install some other packages with pip on the server, just add them to `requirements.txt`. The auto deploy script will do `pip install -r requirements.txt` before running the application.
+
+8. You must put static files under `/static/` and upload `/static/` to the server. Put them under each app's `static/` dir and only use it in development environment. And use `collectstatic` to move static files of each apps to `/static/` dir.
+
+        python manage.py collectstatic
 
 ## Run This Demo Project
 
@@ -123,6 +117,8 @@ It's just a Django Docker container!
 You can do everything you want.
 
 There must be a `settings.py` in root directory, because `DJANGO_SETTINGS_MODULE` is set to `settings` from container's environment variables.
+
+Static files are served outside the container. So you must put static files under `/static/` and upload `/static/` to the server. Putting them under each app's dir and serve them by Django is not available.
 
 Blueking Django Framework provide lots of modules helping DevOps, such as traffic analyser, mailer, sms sender, logger, QQ login, permission control and Mako template engine. They are too heavy. A normal web application may not need them.
 
@@ -193,6 +189,7 @@ all copies or substantial portions of the Software.
 [celery]: https://django.test.qcloudapps.com/celery/
 [celery-add]: https://django.test.qcloudapps.com/celery/add/
 [admin]: https://django.test.qcloudapps.com/admin/
-[admin-init]: https://django.test.qcloudapps.com/admin/init/
-[admin-db-reset]: https://django.test.qcloudapps.com/admin/db/reset/
+[manage]: https://django.test.qcloudapps.com/manage/
+[create-superuser]: https://django.test.qcloudapps.com/manage/createsuperuser/
+[reset-db]: https://django.test.qcloudapps.com/manage/reset_db/
 [blueking-campus]: https://bk.tencent.com/campus/developer-center/apps/

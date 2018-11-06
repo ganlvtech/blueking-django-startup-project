@@ -37,7 +37,6 @@ if WSGI_ENV.endswith('production'):
     }
     BROKER_URL = os.environ.get('BK_BROKER_URL', '')
     STATIC_URL = os.environ.get('BK_STATIC_URL', '/static/')
-    STATICFILES_DIRS = ()
 elif WSGI_ENV.endswith('testing'):
     SECRET_KEY = os.environ.get('BK_SECRET_KEY', '')
     DEBUG = False
@@ -54,8 +53,8 @@ elif WSGI_ENV.endswith('testing'):
     }
     BROKER_URL = os.environ.get('BK_BROKER_URL', '')
     STATIC_URL = os.environ.get('BK_STATIC_URL', '/static/')
-    STATICFILES_DIRS = ()
 else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
     try:
         import MySQLdb
     except ImportError, e:

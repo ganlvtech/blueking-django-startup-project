@@ -37,17 +37,6 @@ def manage_createsuperuser(request):
     return HttpResponse('OK')
 
 
-def manage_collectstatic(request):
-    from django.core.management import execute_from_command_line
-
-    if request.GET.get('clear'):
-        execute_from_command_line(['manage.py', 'collectstatic', '--clear', '--noinput'])
-    else:
-        execute_from_command_line(['manage.py', 'collectstatic', '--noinput'])
-
-    return HttpResponse('OK')
-
-
 def manage_reset_db(request):
     from django.db import connection
     from django.core.management import execute_from_command_line
