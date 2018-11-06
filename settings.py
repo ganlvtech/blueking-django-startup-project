@@ -17,6 +17,7 @@ Change `from mysite.settings import *` `mysite` to `yoursite`
 """
 
 import os
+
 from mysite.settings import *
 
 WSGI_ENV = os.environ.get('DJANGO_CONF_MODULE', '')
@@ -62,6 +63,14 @@ else:
     try:
         import MySQLdb
     except ImportError, e:
-        print "MySQLdb not installed, use pymysql instead."
+        print "MySQLdb not installed, use PyMySQL instead."
         import pymysql
+
         pymysql.install_as_MySQLdb()
+
+if BROKER_URL.startswith('django://'):
+    if 'kombu.transport.django' not in INSTALLED_APPS:
+        INSTALLED_APPS += ('kombu.transport.django',)
+else:
+    if 'kombu.transport.django' in INSTALLED_APPS:
+        INSTALLED_APPS = tuple([item for item in INSTALLED_APPS if item != 'kombu.transport.django'])
