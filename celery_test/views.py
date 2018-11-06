@@ -1,6 +1,7 @@
 from django.http.response import HttpResponse
-from .models import Counter
+
 from . import tasks
+from .models import Counter
 
 
 def index(request):
@@ -11,4 +12,3 @@ def index(request):
 def add(request):
     result = tasks.add.delay()
     return HttpResponse(result)
-
