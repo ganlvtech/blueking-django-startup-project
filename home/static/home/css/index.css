@@ -5,3 +5,26 @@
     vertical-align: middle;
     margin-top: -3px;
 }
+
+.blueking-background svg {
+    color: rgb(255, 255, 255, 0.5);
+    fill: currentColor;
+    height: 20rem;
+    width: 27em;
+}
+
+.jumbotron {
+    position: relative;
+}
+
+.jumbotron .blueking-background {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1;
+}
+
+.jumbotron .container {
+    position: relative;
+    z-index: 2;
+}
