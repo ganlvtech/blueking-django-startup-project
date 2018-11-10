@@ -1,17 +1,41 @@
-from django.http.response import HttpResponse, Http404
+from django.http.response import HttpResponse, HttpResponseNotFound, HttpResponseForbidden
 from django.shortcuts import render
 
 
 def index(request):
     import markdown
     import os
+    from io import open
+
+    filename = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'docs/getting-started.md')
+    with open(filename, 'r', encoding='utf-8') as f:
+        data = f.read()
+    getting_started = markdown.markdown(data, extensions=['fenced_code', 'tables'])
+
+    filename = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'docs/faq.md')
+    with open(filename, 'r', encoding='utf-8') as f:
+        data = f.read()
+    faq = markdown.markdown(data, extensions=['fenced_code', 'tables'])
+
+    return render(request, 'home/index.html', {
+        'getting_started': getting_started,
+        'faq': faq,
+    })
+
+
+def docs(request):
+    import markdown
+    import os
+    from io import open
 
     filename = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'README.md')
-    with open(filename, 'r') as f:
+    with open(filename, 'r', encoding='utf-8') as f:
         data = f.read()
-
     html = markdown.markdown(data, extensions=['fenced_code', 'tables'])
-    return render(request, 'home/index.html', {'html': html})
+
+    return render(request, 'home/docs.html', {
+        'html': html,
+    })
 
 
 def pyinfo(request):
