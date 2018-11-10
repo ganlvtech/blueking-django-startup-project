@@ -32,28 +32,49 @@ def pyinfo(request):
 def files(request):
     import os
     import datetime
-    from mysite import secrets
 
     path = request.GET.get('path', os.getcwd())
 
     if not os.path.exists(path):
-        raise Http404
+        return HttpResponseNotFound()
+
+    if 'secret' in path:
+        return HttpResponseForbidden()
 
     if os.path.isfile(path):
-        if request.GET.get('password') != secrets.DOWNLOAD_PASSWORD:
-            return HttpResponse('Password wrong! File downloading is not allowed.')
         with open(path, 'rb') as fh:
             response = HttpResponse(fh.read(), content_type='application/force-download')
             response['Content-Disposition'] = 'inline; filename=' + os.path.basename(path)
             return response
 
-    file_names = os.listdir(path)
     _files = []
+
+    full_path = path
+    file_stat = os.stat(full_path)
+    _files.append({
+        'path': full_path,
+        'is_dir': True,
+        'name': '.',
+        'size': file_stat.st_size,
+        'date': str(datetime.datetime.utcfromtimestamp(file_stat.st_mtime))
+    })
+
+    full_path = os.path.dirname(path)
+    file_stat = os.stat(full_path)
+    _files.append({
+        'path': full_path,
+        'is_dir': True,
+        'name': '..',
+        'size': file_stat.st_size,
+        'date': str(datetime.datetime.utcfromtimestamp(file_stat.st_mtime))
+    })
+
+    file_names = os.listdir(path)
     for filename in file_names:
         full_path = os.path.join(path, filename)
         file_stat = os.stat(full_path)
         _files.append({
-            'full_path': full_path,
+            'path': full_path,
             'is_dir': os.path.isdir(full_path),
             'name': filename,
             'size': file_stat.st_size,

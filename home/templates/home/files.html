@@ -13,7 +13,7 @@
         <tbody>
             {% for file in files %}
             <tr>
-                <td><a href="?path={{ file.full_path }}">{{ file.name }}{% if file.is_dir %}/{% endif %}</a></td>
+                <td><a href="?path={{ file.path }}">{{ file.name }}{% if file.is_dir %}/{% endif %}</a></td>
                 <td>{{ file.size }}</td>
                 <td>{{ file.date }}</td>
             </tr>
