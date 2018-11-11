@@ -1,15 +1,15 @@
-{% load static from staticfiles %}
-<!DOCTYPE html>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="{% static "home/css/github-markdown.css" %}">
-<link rel="icon" sizes="192x192" href="{% static "home/images/favicon.png" %}">
-<style>
-    .markdown-body {
-        margin: 0 auto;
-        width: 980px;
-        max-width: 100%;
-    }
-</style>
-<div class="markdown-body">
-    {{ html|safe }}
-</div>
+{% extends "home/base.html" %}
+
+{% block title %}README - {% endblock %}
+
+{% block jumbotron %}
+    <h1>{{ heading }}</h1>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <div class="markdown-body">
+            {{ html|safe }}
+        </div>
+    </div>
+{% endblock %}

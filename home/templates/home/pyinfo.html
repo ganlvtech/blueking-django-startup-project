@@ -1,0 +1,45 @@
+{% extends "home/base.html" %}
+
+{% block title %}pyinfo() - {% endblock %}
+
+{% block head_append %}
+    <style>
+        .e {
+            width: 35%;
+            background-color: #ffffcc;
+            font-weight: bold;
+            color: #000
+        }
+
+        .v {
+            background: #f2f2f2;
+            max-width: 300px;
+            word-wrap: break-word;
+            white-space: -moz-pre-wrap;
+            white-space: pre-wrap;
+        }
+    </style>
+{% endblock %}
+
+{% block jumbotron %}
+    <h1>Python {{ py_version }}</h1>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        {% for table in tables %}
+            <h2 class="text-center mt-5 mb-4">{{ table.0 }}</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-sm">
+                    {% for item in table.1 %}
+                        <tr>
+                            <td class="e">{{ item.0 }}</td>
+                            <td class="v">{{ item.1 }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+

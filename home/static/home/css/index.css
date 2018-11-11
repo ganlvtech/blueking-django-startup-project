@@ -15,6 +15,7 @@
 
 .jumbotron {
     position: relative;
+    overflow: hidden;
 }
 
 .jumbotron .blueking-background {
@@ -22,6 +23,7 @@
     top: 1rem;
     right: 1rem;
     z-index: 1;
+    user-select: none;
 }
 
 .jumbotron .container {
