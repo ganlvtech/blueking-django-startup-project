@@ -182,14 +182,14 @@ furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in
 all copies or substantial portions of the Software.
 
-[home]: https://django.test.qcloudapps.com/
-[pyinfo]: https://django.test.qcloudapps.com/pyinfo/
-[files]: https://django.test.qcloudapps.com/files/
-[static-files]: https://django.test.qcloudapps.com/static/index.html
-[celery]: https://django.test.qcloudapps.com/celery/
-[celery-add]: https://django.test.qcloudapps.com/celery/add/
-[admin]: https://django.test.qcloudapps.com/admin/
-[manage]: https://django.test.qcloudapps.com/manage/
-[create-superuser]: https://django.test.qcloudapps.com/manage/createsuperuser/
-[reset-db]: https://django.test.qcloudapps.com/manage/reset_db/
+[home]: https://django.qcloudapps.com/
+[pyinfo]: https://django.qcloudapps.com/pyinfo/
+[files]: https://django.qcloudapps.com/files/
+[static-files]: https://django.qcloudapps.com/static/index.html
+[celery]: https://django.qcloudapps.com/celery/
+[celery-add]: https://django.qcloudapps.com/celery/add/
+[admin]: https://django.qcloudapps.com/admin/
+[manage]: https://django.qcloudapps.com/manage/
+[create-superuser]: https://django.qcloudapps.com/manage/createsuperuser/
+[reset-db]: https://django.qcloudapps.com/manage/reset_db/
 [blueking-campus]: https://bk.tencent.com/campus/developer-center/apps/
