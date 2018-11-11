@@ -55,9 +55,9 @@ def pyinfo(request):
 
     html = response.content
     if request.GET.get('password') != secrets.PYINFO_PASSWORD:
-        html = re.sub(r'(BK_APP_PWD</td><td.*?>)(.*?)(</td>)', '\\1***\\3', html)
+        html = re.sub(r'(BK_APP_PWD</td>\s*?<td.*?>)(.*?)(</td>)', '\\1***\\3', html)
         html = re.sub(r'(amqp://.*?:)(.*?)(@)', '\\1***\\3', html)
-        html = re.sub(r'(BK_SECRET_KEY</td><td.*?>)(.*?)(</td>)', '\\1***\\3', html)
+        html = re.sub(r'(BK_SECRET_KEY</td>\s*?<td.*?>)(.*?)(</td>)', '\\1***\\3', html)
     response.content = html
 
     return response
