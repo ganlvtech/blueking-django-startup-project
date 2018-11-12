@@ -12,13 +12,5 @@ urlpatterns = [
     url(r'^about/$', views.about),
     url(r'^hosts/$', views.hosts),
     url(r'^license/$', views.license),
-    url(r'^settings.py$', serve, {
-        'path': 'settings.py',
-        'document_root': os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    }),
-    url(r'^favicon.ico$', serve, {
-        'path': 'favicon.ico',
-        'document_root': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
-    }),
     url(r'^$', views.index),
 ]
