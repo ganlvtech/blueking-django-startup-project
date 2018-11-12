@@ -5,7 +5,8 @@ from .models import Counter
 
 
 def index(request):
-    value = Counter.objects.get(pk=1).value
+    counter = Counter.objects.first()
+    value = counter.value
     return HttpResponse(value)
 
 
