@@ -46,7 +46,6 @@ def manage_reset_db(request):
     from django.db import connection
     from django.core.management import execute_from_command_line
     from django.contrib.auth import get_user_model
-    from mysite import secrets
     from django.contrib.auth.hashers import check_password
 
     if request.method == 'GET':
