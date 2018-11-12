@@ -49,6 +49,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'csp.middleware.CSPMiddleware',
 )
 
 ROOT_URLCONF = 'mysite.urls'
@@ -127,6 +128,12 @@ INSTALLED_APPS += ('kombu.transport.django',)
 # BROKER_URL = 'redis://localhost'
 # Celery beat periodic tasks
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+
+
+# Content Security Policy
+# https://django-csp.readthedocs.io/en/latest/configuration.html
+CSP_FRAME_ANCESTORS = 'bk.tencent.com'
+CSP_DEFAULT_SRC = ("'self'", 'data:')
 
 
 INSTALLED_APPS += (
