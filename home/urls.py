@@ -1,7 +1,4 @@
-import os
-
 from django.conf.urls import url
-from django.conf.urls.static import serve
 
 from . import views
 

@@ -119,34 +119,16 @@ def files(request):
         return HttpResponseForbidden()
 
     if os.path.isfile(path):
-        import mimetypes
         import stat
         from django.utils.http import http_date
         from django.views.static import was_modified_since
+        from .utils import guess_type
 
         statobj = os.stat(path)
         if not was_modified_since(request.META.get('HTTP_IF_MODIFIED_SINCE'), statobj.st_mtime, statobj.st_size):
             return HttpResponseNotModified()
 
-        content_type, encoding = mimetypes.guess_type(path)
-
-        if not content_type:
-            content_type = 'application/octet-stream'
-
-            with open(path, 'rb') as fh:
-                data = fh.read(4096)
-
-            for i in range(0, 4):
-                try:
-                    if i == 0:
-                        data.decode('utf-8')
-                    else:
-                        data[:-i].decode('utf-8')
-                except UnicodeDecodeError:
-                    pass
-                else:
-                    content_type = 'text/plain; charset=utf-8'
-                    break
+        content_type, encoding = guess_type(path)
 
         response = FileResponse(open(path, 'rb'), content_type=content_type)
         response["Last-Modified"] = http_date(statobj.st_mtime)

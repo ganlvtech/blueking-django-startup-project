@@ -1,3 +1,6 @@
+import mimetypes
+
+
 def format_time(timestamp):
     from datetime import datetime
     return datetime.utcfromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')
@@ -35,3 +38,27 @@ def markdown_from_file(path):
     html = markdown.markdown(data, extensions=['fenced_code', 'tables'])
 
     return html
+
+
+def guess_type(path):
+    content_type, encoding = mimetypes.guess_type(path)
+
+    if not content_type:
+        content_type = 'application/octet-stream'
+
+        with open(path, 'rb') as fh:
+            data = fh.read(4096)
+
+        for i in range(0, 4):
+            try:
+                if i == 0:
+                    data.decode('utf-8')
+                else:
+                    data[:-i].decode('utf-8')
+            except UnicodeDecodeError:
+                pass
+            else:
+                content_type = 'text/plain; charset=utf-8'
+                break
+
+    return content_type, encoding
