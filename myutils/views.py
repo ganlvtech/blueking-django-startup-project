@@ -53,16 +53,23 @@ def manage_reset_db(request):
         return render(request, 'myutils/manage_reset_db.html')
 
     username = request.POST.get('username')
-    email = request.POST.get('email')
     password = request.POST.get('password')
+    confirm = request.POST.get('confirm')
 
     errors = []
     if not username:
         errors.append(ValidationError('username must be set'))
     if not password:
         errors.append(ValidationError('password must be set'))
+    if not confirm:
+        errors.append(ValidationError('confirm must be set'))
     if errors:
         raise ValidationError(errors)
+
+    if confirm != 'Reset Database':
+        return render(request, 'myutils/manage_reset_db.html', {
+            'confirm_wrong': True
+        })
 
     User = get_user_model()
 
