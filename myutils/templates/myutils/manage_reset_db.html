@@ -1,7 +1,46 @@
-<form method="POST">
-    {% csrf_token %}
-    <label for="password">Password:</label>
-    <input type="text" name="password" id="password">
-    <input type="submit">
-</form>
-<p>{{ message }}</p>
+{% extends "home/base.html" %}
+
+{% block title %}Reset Database - {% endblock %}
+
+{% block jumbotron %}
+    <h1 class="mb-4">重置数据库</h1>
+    <p>删除数据库中所有表，重新执行数据库迁移。</p>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <div class="row justify-content-lg-center">
+            <div class="col-lg-8">
+                <h4 class="mb-4">请输入超级管理员的用户名和密码</h4>
+                {% if password_wrong %}
+                    <div class="alert alert-danger" role="alert">
+                        用户名或密码错误
+                    </div>
+                {% elif ok %}
+                    <div class="alert alert-success" role="alert">
+                        所有表都已删除，数据库重新迁移成功。
+                    </div>
+                {% endif %}
+                <form method="post">
+                    {% csrf_token %}
+                        <div class="form-group">
+                            <label for="form-input-username">用户名</label>
+                            <input type="text" name="username" value="admin" class="form-control" id="form-input-username" placeholder="请输入用户名">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-input-password">密码</label>
+                            <input type="password" name="password" class="form-control" id="form-input-password" placeholder="请输入密码">
+                        </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-danger px-5">重置数据库</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+

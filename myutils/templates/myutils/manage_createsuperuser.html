@@ -1,9 +1,50 @@
-<h1>Create superuser:</h1>
-<form method="post">
-    {% csrf_token %}
-    <p>Username: <input type="text" name="username" value="admin"></p>
-    <p>E-mail: <input type="text" name="email" value="admin@example.com"></p>
-    <p>Password: <input type="password" name="password"></p>
-    <p><input type="submit"></p>
-</form>
-<p>Notice: This operation can't be done twice.</p>
+{% extends "home/base.html" %}
+
+{% block title %}Create Superuser - {% endblock %}
+
+{% block jumbotron %}
+    <h1>创建超级管理员</h1>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <div class="row justify-content-lg-center">
+            <div class="col-lg-8">
+                {% if superuser_exists %}
+                    <div class="alert alert-danger" role="alert">
+                        超级管理员已存在，禁止再次创建！
+                    </div>
+                {% elif ok %}
+                    <div class="alert alert-success" role="alert">
+                        超级管理员已成功创建。
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning" role="alert">
+                        警告：超级管理员只能创建一次！
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="form-input-username">用户名</label>
+                            <input type="text" name="username" value="admin" class="form-control" id="form-input-username" placeholder="请输入用户名">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-input-email">Email</label>
+                            <input type="email" name="email" value="admin@example.com" class="form-control" id="form-input-email" placeholder="请输入 Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-input-password">密码</label>
+                            <input type="password" name="password" class="form-control" id="form-input-password" placeholder="请输入密码">
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary px-5">创建超级管理员</button>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+

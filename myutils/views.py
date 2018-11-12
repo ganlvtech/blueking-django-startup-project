@@ -1,5 +1,5 @@
 from django.core.exceptions import ValidationError
-from django.http import FileResponse, HttpResponse, HttpResponseForbidden, HttpResponseNotFound, HttpResponseNotModified
+from django.http import FileResponse, HttpResponseForbidden, HttpResponseNotFound, HttpResponseNotModified
 from django.shortcuts import render
 
 
@@ -13,7 +13,10 @@ def manage_createsuperuser(request):
     User = get_user_model()
 
     if User.objects.filter(is_superuser=1).count() > 0:
-        return HttpResponse("Superuser already exists!")
+        return render(request, 'myutils/manage_createsuperuser.html', {
+            'superuser_exists': True
+        })
+        # return HttpResponse("Superuser already exists!")
 
     if request.method != 'POST':
         return render(request, 'myutils/manage_createsuperuser.html')
@@ -34,20 +37,39 @@ def manage_createsuperuser(request):
 
     User.objects.create_superuser(username, email, password)
 
-    return HttpResponse('OK')
+    return render(request, 'myutils/manage_createsuperuser.html', {
+        'ok': True
+    })
 
 
 def manage_reset_db(request):
     from django.db import connection
     from django.core.management import execute_from_command_line
+    from django.contrib.auth import get_user_model
     from mysite import secrets
+    from django.contrib.auth.hashers import check_password
 
     if request.method == 'GET':
         return render(request, 'myutils/manage_reset_db.html')
 
-    if request.POST.get('password') != secrets.RESET_PASSWORD:
+    username = request.POST.get('username')
+    email = request.POST.get('email')
+    password = request.POST.get('password')
+
+    errors = []
+    if not username:
+        errors.append(ValidationError('username must be set'))
+    if not password:
+        errors.append(ValidationError('password must be set'))
+    if errors:
+        raise ValidationError(errors)
+
+    User = get_user_model()
+
+    user = User.objects.filter(is_superuser=1, username=username).first()
+    if not user or not check_password(password, user.password):
         return render(request, 'myutils/manage_reset_db.html', {
-            'message': "Password wrong!"
+            'password_wrong': True
         })
 
     with connection.cursor() as cursor:
@@ -62,7 +84,7 @@ def manage_reset_db(request):
     execute_from_command_line(['manage.py', 'migrate'])
 
     return render(request, 'myutils/manage_reset_db.html', {
-        'message': "All tables dropped. New tables migrated."
+        'ok': True
     })
 
 
