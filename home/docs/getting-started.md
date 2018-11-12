@@ -9,7 +9,7 @@
 
 3. 下载 `settings.py`
 
-        wget https://raw.githubusercontent.com/ganlvtech/blueking-django-startup-project/master/settings.py
+        wget https://django.qcloudapps.com/settings.py
 
 4. 修改 `manage.py` 中的 `DJANGO_SETTINGS_MODULE`
 

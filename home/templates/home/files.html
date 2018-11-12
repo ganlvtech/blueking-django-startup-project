@@ -2,6 +2,20 @@
 
 {% block title %}File Explorer - {% endblock %}
 
+{% block head_append %}
+    <style>
+        td:nth-child(2) {
+            width: 5em;
+            max-width: 5em;
+        }
+
+        td:nth-child(3) {
+            width: 10em;
+            max-width: 10em;
+        }
+    </style>
+{% endblock %}
+
 {% block jumbotron %}
     <h1>服务器文件浏览</h1>
 {% endblock %}
@@ -29,5 +43,4 @@
             </table>
         </div>
     </div>
-</div>
-{%  endblock %}
+{% endblock %}
