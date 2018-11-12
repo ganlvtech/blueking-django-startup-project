@@ -6,7 +6,7 @@ def index(request):
     import os
     from .utils import markdown_from_file
 
-    getting_started_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'docs/getting-started.md')
+    getting_started_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'docs/getting-started.md')
 
     getting_started = markdown_from_file(getting_started_path)
 
@@ -19,7 +19,7 @@ def about(request):
     import os
     from .utils import markdown_from_file
 
-    about_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'docs/about.md')
+    about_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'docs/about.md')
     about = markdown_from_file(about_path)
 
     return render(request, 'home/about.html', {
@@ -31,15 +31,12 @@ def docs(request):
     import os
     from .utils import markdown_from_file
 
-    docs_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'docs/docs.md')
-    faq_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'docs/faq.md')
+    docs_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'docs/docs.md')
 
     docs = markdown_from_file(docs_path)
-    faq = markdown_from_file(faq_path)
 
     return render(request, 'home/docs.html', {
-        'docs': docs,
-        'faq': faq
+        'docs': docs
     })
 
 
