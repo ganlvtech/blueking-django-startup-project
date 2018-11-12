@@ -133,7 +133,7 @@ CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 # Content Security Policy
 # https://django-csp.readthedocs.io/en/latest/configuration.html
 CSP_FRAME_ANCESTORS = 'bk.tencent.com'
-CSP_DEFAULT_SRC = ("'self'", 'data:')
+CSP_DEFAULT_SRC = ("'self'", 'data:', 'o.qcloud.com')
 
 
 INSTALLED_APPS += (
