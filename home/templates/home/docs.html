@@ -1,15 +1,21 @@
 {% extends "home/base.html" %}
 
-{% block title %}README - {% endblock %}
+{% block title %}Documentations - {% endblock %}
 
 {% block jumbotron %}
-    <h1>{{ heading }}</h1>
+    <h1 class="mb-4">A Django Startup Project For Tencent Blueking</h1>
+    <p class="lead">A Simplified Django Settings For Tencent Blueking</p>
 {% endblock %}
 
 {% block main %}
     <div class="container">
+        <h2 class="text-center my-4">常见问题</h2>
         <div class="markdown-body">
-            {{ html|safe }}
+            {{ faq|safe }}
+        </div>
+        <h2 class="text-center my-4">开发文档</h2>
+        <div class="markdown-body">
+            {{ docs|safe }}
         </div>
     </div>
 {% endblock %}

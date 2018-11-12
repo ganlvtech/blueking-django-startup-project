@@ -7,30 +7,39 @@ def index(request):
     from .utils import markdown_from_file
 
     getting_started_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'docs/getting-started.md')
-    faq_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'docs/faq.md')
 
     getting_started = markdown_from_file(getting_started_path)
-    faq = markdown_from_file(faq_path)
 
     return render(request, 'home/index.html', {
         'getting_started': getting_started,
-        'faq': faq,
+    })
+
+
+def about(request):
+    import os
+    from .utils import markdown_from_file
+
+    about_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'docs/about.md')
+    about = markdown_from_file(about_path)
+
+    return render(request, 'home/about.html', {
+        'about': about
     })
 
 
 def docs(request):
     import os
-    import re
     from .utils import markdown_from_file
 
-    filename = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'README.md')
-    html = markdown_from_file(filename)
-    heading = re.match(r'<h1>(.*?)</h1>', html).group(1)
-    html = re.sub(r'<h1>.*?</h1>', '', html)
+    docs_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'docs/docs.md')
+    faq_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'docs/faq.md')
+
+    docs = markdown_from_file(docs_path)
+    faq = markdown_from_file(faq_path)
 
     return render(request, 'home/docs.html', {
-        'heading': heading,
-        'html': html,
+        'docs': docs,
+        'faq': faq
     })
 
 

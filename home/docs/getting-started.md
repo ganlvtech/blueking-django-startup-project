@@ -21,9 +21,14 @@
 
         os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 
-5. 启动服务器
+5. 迁移数据库
 
         python manage.py migrate
+
+6. 启动服务器，并访问 <http://127.0.0.1:8000/>
+
         python manage.py runserver
 
-6. 访问 <http://127.0.0.1:8000/>
+7. 提交到 SVN 服务器
+
+8. 在开发者中心点击“一键部署”

@@ -4,6 +4,8 @@
 
 服务器会自动运行 `pip install -r requirements.txt`
 
+**注意：服务器的 setuptools 并不是最新版的，部分 pip 包安装时对 setuptools 的版本有要求，这些包不能被安装。**
+
 ### 关于 MySQL
 
 在本地开发环境中，你不必使用原生的 `MySQL-python`，试试 `PyMySQL` 吧！
