@@ -141,10 +141,19 @@ def files(request):
     from .utils import format_time
 
     path = request.GET.get('path', os.getcwd())
-    path = os.path.abspath(path)
+    abs_path = os.path.abspath(path)
 
-    if not os.path.exists(path):
-        return HttpResponseNotFound()
+    if not os.path.exists(abs_path):
+        import base64
+        try:
+            path = base64.b64decode(path)
+            abs_path = os.path.abspath(path)
+            if not os.path.exists(abs_path):
+                return HttpResponseNotFound()
+        except TypeError:
+            return HttpResponseNotFound()
+
+    path = abs_path
 
     if 'secret' in path:
         return HttpResponseForbidden()
@@ -174,10 +183,12 @@ def files(request):
 
     full_path = os.path.dirname(path)
     file_stat = os.stat(full_path)
+
     _files.append({
         'path': urllib.quote(full_path.encode('utf-8')),
         'is_dir': True,
         'name': '..',
+        'mode': oct(file_stat.st_mode & 0o777),
         'size': file_stat.st_size,
         'date': format_time(file_stat.st_mtime)
     })
@@ -190,6 +201,7 @@ def files(request):
             'path': urllib.quote(full_path.encode('utf-8')),
             'is_dir': os.path.isdir(full_path),
             'name': filename,
+            'mode': oct(file_stat.st_mode & 0o777),
             'size': file_stat.st_size,
             'date': format_time(file_stat.st_mtime)
         })

@@ -4,12 +4,17 @@
 
 {% block head_append %}
     <style>
-        td:nth-child(2) {
+        td:nth-last-child(3) {
+            width: 4em;
+            max-width: 4em;
+        }
+
+        td:nth-last-child(2) {
             width: 5em;
             max-width: 5em;
         }
 
-        td:nth-child(3) {
+        td:nth-last-child(1) {
             width: 10em;
             max-width: 10em;
         }
@@ -26,15 +31,17 @@
             <table class="table table-striped table-hover table-sm">
                 <thead>
                     <tr>
-                        <th>File Name</th>
-                        <th>File Size</th>
-                        <th>Date</th>
+                        <th>文件名</th>
+                        <th>模式</th>
+                        <th>大小</th>
+                        <th>修改时间</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for file in files %}
                         <tr>
                             <td><a href="?path={{ file.path }}">{{ file.name }}{% if file.is_dir %}/{% endif %}</a></td>
+                            <td>{{ file.mode }}</td>
                             <td>{{ file.size }}</td>
                             <td>{{ file.date }}</td>
                         </tr>
