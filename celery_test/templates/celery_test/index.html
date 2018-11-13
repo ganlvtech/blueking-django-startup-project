@@ -1,0 +1,23 @@
+{% extends "home/base.html" %}
+
+{% block title %}Celery - {% endblock %}
+
+{% block jumbotron %}
+    <h1 class="mb-4">Celery</h1>
+    <p>一个每分钟 +1 的计数器</p>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2 class="text-center mb-4">计数器</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <p class="display-4 text-center">{{ count }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
