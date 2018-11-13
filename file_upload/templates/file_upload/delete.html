@@ -1,0 +1,24 @@
+{% extends "home/base.html" %}
+
+{% block title %}Delete Uploaded File- {% endblock %}
+
+{% block jumbotron %}
+    <h1>删除上传的文件</h1>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="alert alert-success" role="alert">
+                    文件 {{ file_deleted }} 已删除
+                </div>
+                <div class="text-center">
+                    <div class="text-center">
+                        <a href="{% url 'upload:index' %}" class="btn btn-outline-primary px-5">返回</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

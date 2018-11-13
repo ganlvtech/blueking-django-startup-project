@@ -12,6 +12,7 @@ Online demos:
 * [Server's /etc/hosts](https://django.qcloudapps.com/utils/hosts/)
 * [Django manage create superuser](https://django.qcloudapps.com/utils/createsuperuser/)
 * [Reset database](https://django.qcloudapps.com/utils/reset_db/)
+* [File Upload](https://django.qcloudapps.com/upload/)
 * [A counter using django celery that increases every minutes](https://django.qcloudapps.com/celery/)
 * [Increase the counter manually](https://django.qcloudapps.com/celery/add/)
 * [Django Admin Site](https://django.qcloudapps.com/admin/)

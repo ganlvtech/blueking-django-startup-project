@@ -1,0 +1,100 @@
+{% extends "home/base.html" %}
+
+{% block title %}Upload File - {% endblock %}
+
+{% block head_append %}
+    <style>
+        td:nth-child(2) {
+            width: 4em;
+            max-width: 4em;
+        }
+
+        td:nth-last-child(3) {
+            width: 4em;
+            max-width: 4em;
+        }
+
+        td:nth-last-child(2) {
+            width: 5em;
+            max-width: 5em;
+        }
+
+        td:nth-last-child(1) {
+            width: 10em;
+            max-width: 10em;
+        }
+    </style>
+{% endblock %}
+
+{% block jumbotron %}
+    <h1 class="mb-4">上传文件</h1>
+    <div class="row">
+        <div class="col-md-8 col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <form action="{% url 'upload:index' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="file" name="file" class="form-control-file" id="form-input-file">
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary px-5">上传</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        {% if ok %}
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="alert alert-success" role="alert">
+                        上传成功 <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-center">
+                            <a href="{% url 'upload:index' %}" class="btn btn-outline-primary px-5">返回</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <h2 class="mb-4 text-center">已上传文件</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th>文件名</th>
+                            <th>删除</th>
+                            <th>模式</th>
+                            <th>大小</th>
+                            <th>修改时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for file in files %}
+                            <tr>
+                                <td><a href="{% url 'upload:serve' file.name %}">{{ file.name }}</a></td>
+                                <td>
+                                    <form action="{% url 'upload:delete' %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="path" value="{{ file.name }}">
+                                        <input type="submit" value="删除">
+                                    </form>
+                                </td>
+                                <td>{{ file.mode }}</td>
+                                <td>{{ file.size }}</td>
+                                <td>{{ file.date }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -4,3 +4,4 @@ secrets.py
 *.sqlite3
 *.pid
 /static
+/USERRES

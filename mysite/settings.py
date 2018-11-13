@@ -136,8 +136,16 @@ CSP_FRAME_ANCESTORS = 'bk.tencent.com'
 CSP_DEFAULT_SRC = ("'self'", "'unsafe-inline'", 'data:', 'o.qcloud.com')
 
 
+# File Upload
+# https://docs.djangoproject.com/en/1.8/topics/http/file-uploads/
+# https://docs.djangoproject.com/en/1.8/ref/settings/#media-root
+# https://docs.djangoproject.com/en/1.8/ref/settings/#media-url
+MEDIA_ROOT = os.path.join(BASE_DIR, 'USERRES')
+MEDIA_URL = '/upload/files/'
+
 INSTALLED_APPS += (
     'celery_test',
     'home',
     'myutils',
+    'file_upload',
 )
