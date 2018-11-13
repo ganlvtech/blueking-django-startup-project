@@ -27,13 +27,13 @@ urlpatterns = [
     url(r'^favicon.ico$', serve, {
         'path': 'favicon.ico',
         'document_root': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
-    }),
+    }, name='favicon.ico'),
     url(r'^settings.py$', serve, {
         'path': 'settings.py',
         'document_root': os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    }),
-    url(r'^', include(home.urls)),
-    url(r'^', include(myutils.urls)),
+    }, name='settings.py'),
+    url(r'^', include(home.urls, namespace='home')),
+    url(r'^utils/', include(myutils.urls, namespace='utils')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^celery/', include(celery_test.urls)),
+    url(r'^celery/', include(celery_test.urls, namespace='celery')),
 ]

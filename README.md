@@ -6,16 +6,15 @@ A Simplified Django Settings For Tencent Blueking
 
 Online demos:
 
-* [Home Page][home]
-* [System Infomation][pyinfo]
-* [A files explorer][files]
-* [Static files][static-files]
-* [A counter using django celery that increases every minutes][celery]
-* [Increase the counter manually][celery-add]
-* [Django Admin Site][admin]
-* [Django manage][manage]
-* [Django manage create superuser][create-superuser]
-* [Reset database][reset-db]
+* [Home Page](https://django.qcloudapps.com/)
+* [System Infomation](https://django.qcloudapps.com/utils/pyinfo/)
+* [A files explorer](https://django.qcloudapps.com/utils/files/)
+* [Server's /etc/hosts](https://django.qcloudapps.com/utils/hosts/)
+* [Django manage create superuser](https://django.qcloudapps.com/utils/createsuperuser/)
+* [Reset database](https://django.qcloudapps.com/utils/reset_db/)
+* [A counter using django celery that increases every minutes](https://django.qcloudapps.com/celery/)
+* [Increase the counter manually](https://django.qcloudapps.com/celery/add/)
+* [Django Admin Site](https://django.qcloudapps.com/admin/)
 
 You may find that Blueking's default Django project has too many unused things and difficult to learn.
 
@@ -128,7 +127,7 @@ You can write them or migrate them by yourself when you are good enough in Djang
 
 ## System Infomation
 
-See [pyinfo].
+See [pyinfo](https://django.qcloudapps.com/utils/pyinfo/).
 
 ### Pre-Installed Modules (Site Packages)
 
@@ -181,15 +180,3 @@ furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in
 all copies or substantial portions of the Software.
-
-[home]: https://django.qcloudapps.com/
-[pyinfo]: https://django.qcloudapps.com/pyinfo/
-[files]: https://django.qcloudapps.com/files/
-[static-files]: https://django.qcloudapps.com/static/index.html
-[celery]: https://django.qcloudapps.com/celery/
-[celery-add]: https://django.qcloudapps.com/celery/add/
-[admin]: https://django.qcloudapps.com/admin/
-[manage]: https://django.qcloudapps.com/manage/
-[create-superuser]: https://django.qcloudapps.com/manage/createsuperuser/
-[reset-db]: https://django.qcloudapps.com/manage/reset_db/
-[blueking-campus]: https://bk.tencent.com/campus/developer-center/apps/

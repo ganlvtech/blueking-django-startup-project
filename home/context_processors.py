@@ -20,12 +20,6 @@ def navbar(request):
             'docs': path_info == '/docs/',
             'about': path_info == '/about/',
             'license': path_info == '/license/',
-            'utils': path_info in (
-                '/pyinfo/',
-                '/files/',
-                '/hosts/',
-                '/manage/createsuperuser/',
-                '/manage/reset_db/',
-            ),
+            'utils': path_info.startswith('/utils/'),
         }
     }

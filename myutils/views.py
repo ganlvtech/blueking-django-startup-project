@@ -3,10 +3,6 @@ from django.http import FileResponse, HttpResponseForbidden, HttpResponseNotFoun
 from django.shortcuts import render
 
 
-def index(request):
-    return render(request, 'myutils/index.html')
-
-
 def manage_createsuperuser(request):
     from django.contrib.auth import get_user_model
 
