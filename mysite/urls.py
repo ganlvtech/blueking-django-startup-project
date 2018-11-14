@@ -25,10 +25,6 @@ import home.urls
 import myutils.urls
 
 urlpatterns = [
-    url(r'^favicon.ico$', serve, {
-        'path': 'favicon.ico',
-        'document_root': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
-    }, name='favicon.ico'),
     url(r'^settings.py$', serve, {
         'path': 'settings.py',
         'document_root': os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
