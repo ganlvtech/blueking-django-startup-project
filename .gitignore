@@ -5,3 +5,4 @@ secrets.py
 *.pid
 /static
 /USERRES
+/golang/go/bin

@@ -21,6 +21,7 @@ from django.views.static import serve
 
 import celery_test.urls
 import file_upload.urls
+import golang.urls
 import home.urls
 import myutils.urls
 
@@ -31,7 +32,8 @@ urlpatterns = [
     }, name='settings.py'),
     url(r'^', include(home.urls, namespace='home')),
     url(r'^utils/', include(myutils.urls, namespace='utils')),
-    url(r'^upload/', include(file_upload.urls, namespace='upload')),
     url(r'^celery/', include(celery_test.urls, namespace='celery')),
+    url(r'^upload/', include(file_upload.urls, namespace='upload')),
+    url(r'^go/', include(golang.urls, namespace='golang')),
     url(r'^admin/', include(admin.site.urls)),
 ]

@@ -144,8 +144,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'USERRES')
 MEDIA_URL = '/upload/'
 
 INSTALLED_APPS += (
-    'celery_test',
     'home',
     'myutils',
+    'celery_test',
     'file_upload',
+    'golang',
 )
