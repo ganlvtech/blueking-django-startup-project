@@ -1,0 +1,38 @@
+{% extends "home/base.html" %}
+
+{% block title %}Call Go Program Streaming Response - {% endblock %}
+
+{% block head_append %}
+    <style>
+        pre {
+            padding: 16px;
+            overflow: auto;
+            font-size: 85%;
+            line-height: 1.45;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+    </style>
+{% endblock %}
+
+{% block jumbotron %}
+    <h1 class="mb-4">异步调用外部程序，流式返回</h1>
+    <p>调用 Go 语言程序，流式返回 <code>stdout</code> 输出</p>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <pre><code id="stream"></code></pre>
+    </div>
+    <script>
+        if (!!window.EventSource) {
+            var source = new EventSource('?stream=1');
+            source.onmessage = function (event) {
+                document.getElementById('stream').innerHTML += event.data + '<br>';
+            };
+            source.onerror = function (event) {
+                source.close();
+            }
+        }
+    </script>
+{% endblock %}

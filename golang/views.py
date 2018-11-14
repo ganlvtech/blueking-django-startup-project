@@ -1,28 +1,43 @@
-import os
 import subprocess
 
-from django.http import HttpResponse
+from django.http import HttpResponse, StreamingHttpResponse
+from django.shortcuts import render
 
 from .helpers import get_go_program_path
 
 
 def index(request):
     path = get_go_program_path()
-    os.chmod(path, 0o755)
-    exit_status = os.system(path)
-    return HttpResponse(exit_status)
+    output = subprocess.check_output([path])
+    return render(request, 'golang/index.html', {
+        'content': output
+    })
 
 
-def wait(request):
+def stream(request):
+    if not request.GET.get('stream'):
+        return render(request, 'golang/stream.html')
+
     path = get_go_program_path()
-    os.chmod(path, 0o755)
     proc = subprocess.Popen([path], stdout=subprocess.PIPE)
-    (out, err) = proc.communicate()
-    return HttpResponse(out)
+
+    def iterator():
+        while True:
+            line = proc.stdout.readline()
+            if line != '':
+                yield 'data: {}\n\n'.format(line)
+            else:
+                break
+
+    response = StreamingHttpResponse(iterator(), content_type="text/event-stream")
+    response['Cache-Control'] = 'no-cache'
+
+    return response
 
 
 def nowait(request):
     path = get_go_program_path()
-    os.chmod(path, 0o755)
-    proc = subprocess.Popen([path])
-    return HttpResponse(proc.pid)
+    proc = subprocess.Popen([path], close_fds=True)
+    return render(request, 'golang/nowait.html', {
+        'pid': proc.pid
+    })

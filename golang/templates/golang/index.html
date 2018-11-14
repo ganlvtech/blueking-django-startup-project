@@ -1,0 +1,27 @@
+{% extends "home/base.html" %}
+
+{% block title %}Call Go Program Sync - {% endblock %}
+
+{% block head_append %}
+    <style>
+        pre {
+            padding: 16px;
+            overflow: auto;
+            font-size: 85%;
+            line-height: 1.45;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+    </style>
+{% endblock %}
+
+{% block jumbotron %}
+    <h1 class="mb-4">同步调用外部程序</h1>
+    <p>调用 Go 语言程序，等待执行结束，返回 <code>stdout</code></p>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <pre><code>{{ content }}</code></pre>
+    </div>
+{% endblock %}
