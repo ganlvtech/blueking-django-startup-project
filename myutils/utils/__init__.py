@@ -7,9 +7,8 @@ def my_pyinfo():
     def section_custom():
         data = []
 
-        import requests
-        ip = requests.get('http://ip-api.com/json').json()['query']
-        data.append(('WAN IP Address', ip))
+        from myutils.utils.ip import get_ip
+        data.append(('WAN IP Address', get_ip))
 
         from uuid import getnode as get_mac
         mac = get_mac()

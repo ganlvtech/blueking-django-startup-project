@@ -1,3 +1,4 @@
+# coding=utf-8
 from django.core.exceptions import ValidationError
 from django.http import FileResponse, HttpResponseForbidden, HttpResponseNotFound, HttpResponseNotModified
 from django.shortcuts import render
@@ -114,6 +115,31 @@ def hosts(request):
     })
 
 
+def users(request):
+    import os
+
+    if os.name == 'posix':
+        users_path = '/etc/passwd'
+        with open(users_path, 'rb') as fh:
+            data = fh.read()
+        users = data.decode('utf-8')
+
+        groups_path = '/etc/group'
+        with open(groups_path, 'rb') as fh:
+            data = fh.read()
+        groups = data.decode('utf-8')
+
+        content = '{}\n\n{}\n\n\n{}\n\n{}'.format(users_path, users, groups_path, groups)
+    else:
+        content = 'Only available on Linux.'
+
+    return render(request, 'home/plain_text.html', {
+        'title': 'Users And Groups',
+        'heading': u'用户和用户组',
+        'content': content,
+    })
+
+
 def pyinfo(request):
     import platform
     import re
@@ -188,6 +214,8 @@ def files(request):
         'path': urllib.quote(full_path.encode('utf-8')),
         'is_dir': True,
         'name': '..',
+        'uid': file_stat.st_uid,
+        'gid': file_stat.st_gid,
         'mode': oct(file_stat.st_mode & 0o777),
         'size': file_stat.st_size,
         'date': format_time(file_stat.st_mtime)
@@ -201,6 +229,8 @@ def files(request):
             'path': urllib.quote(full_path.encode('utf-8')),
             'is_dir': os.path.isdir(full_path),
             'name': filename,
+            'uid': file_stat.st_uid,
+            'gid': file_stat.st_gid,
             'mode': oct(file_stat.st_mode & 0o777),
             'size': file_stat.st_size,
             'date': format_time(file_stat.st_mtime)
