@@ -141,7 +141,7 @@ CSP_DEFAULT_SRC = ("'self'", "'unsafe-inline'", 'data:', 'o.qcloud.com')
 # https://docs.djangoproject.com/en/1.8/ref/settings/#media-root
 # https://docs.djangoproject.com/en/1.8/ref/settings/#media-url
 MEDIA_ROOT = os.path.join(BASE_DIR, 'USERRES')
-MEDIA_URL = '/upload/files/'
+MEDIA_URL = '/upload/'
 
 INSTALLED_APPS += (
     'celery_test',

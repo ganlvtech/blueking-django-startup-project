@@ -22,6 +22,7 @@ from mysite.settings import *
 
 WSGI_ENV = os.environ.get('DJANGO_CONF_MODULE', '')
 if WSGI_ENV.endswith('production'):
+    RUN_MODE = 'PRODUCT'
     SECRET_KEY = os.environ.get('BK_SECRET_KEY', '')
     DEBUG = False
     ALLOWED_HOSTS = ['*']
@@ -37,8 +38,10 @@ if WSGI_ENV.endswith('production'):
     }
     BROKER_URL = os.environ.get('BK_BROKER_URL', '')
     STATIC_URL = os.environ.get('BK_STATIC_URL', '/static/')
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'USERRES')
     REMOTE_STATIC_URL = os.environ.get('BK_REMOTE_STATIC_URL', 'http://o.qcloud.com/static_api/')
 elif WSGI_ENV.endswith('testing'):
+    RUN_MODE = 'TEST'
     SECRET_KEY = os.environ.get('BK_SECRET_KEY', '')
     DEBUG = False
     ALLOWED_HOSTS = ['*']
@@ -54,8 +57,10 @@ elif WSGI_ENV.endswith('testing'):
     }
     BROKER_URL = os.environ.get('BK_BROKER_URL', '')
     STATIC_URL = os.environ.get('BK_STATIC_URL', '/static/')
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'USERRES')
     REMOTE_STATIC_URL = os.environ.get('BK_REMOTE_STATIC_URL', 'http://o.qcloud.com/static_api/')
 else:
+    RUN_MODE = 'DEVELOP'
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
     try:
         import MySQLdb

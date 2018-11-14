@@ -23,20 +23,21 @@ def index(request):
     import os
     from myutils.utils import format_time
     from mysite import settings
-    document_root = settings.MEDIA_ROOT
+    document_root = settings.MEDIA_ROOT.decode('utf-8')
 
     _files = []
 
-    file_names = os.listdir(document_root)
-    for filename in file_names:
-        full_path = os.path.join(document_root, filename)
-        file_stat = os.stat(full_path)
-        _files.append({
-            'name': filename,
-            'mode': oct(file_stat.st_mode & 0o777),
-            'size': file_stat.st_size,
-            'date': format_time(file_stat.st_mtime)
-        })
+    if os.path.exists(document_root):
+        file_names = os.listdir(document_root)
+        for filename in file_names:
+            full_path = os.path.join(document_root, filename)
+            file_stat = os.stat(full_path)
+            _files.append({
+                'name': filename,
+                'mode': oct(file_stat.st_mode & 0o777),
+                'size': file_stat.st_size,
+                'date': format_time(file_stat.st_mtime)
+            })
 
     return render(request, 'file_upload/index.html', {
         'files': _files
