@@ -2,7 +2,7 @@
 
 A Simplified Django Settings For Tencent Blueking
 
-[Tencent Blueking Cloud Campus Version Developer Center][blueking-campus]
+[Tencent Blueking Cloud Campus Version Developer Center](https://bk.tencent.com/campus/developer-center/)
 
 Online demos:
 
@@ -15,6 +15,8 @@ Online demos:
 * [File Upload](https://django.qcloudapps.com/upload/)
 * [A counter using django celery that increases every minutes](https://django.qcloudapps.com/celery/)
 * [Increase the counter manually](https://django.qcloudapps.com/celery/add/)
+* [Run golang program](https://django.qcloudapps.com/go/)
+* [Send E-mail via SMTP](https://django.qcloudapps.com/mail/)
 * [Django Admin Site](https://django.qcloudapps.com/admin/)
 
 You may find that Blueking's default Django project has too many unused things and difficult to learn.
