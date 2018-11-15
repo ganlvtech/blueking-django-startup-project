@@ -24,6 +24,7 @@ import file_upload.urls
 import golang.urls
 import home.urls
 import myutils.urls
+import send_email.urls
 
 urlpatterns = [
     url(r'^settings.py$', serve, {
@@ -35,5 +36,6 @@ urlpatterns = [
     url(r'^celery/', include(celery_test.urls, namespace='celery')),
     url(r'^upload/', include(file_upload.urls, namespace='upload')),
     url(r'^go/', include(golang.urls, namespace='golang')),
+    url(r'^mail/', include(send_email.urls, namespace='mail')),
     url(r'^admin/', include(admin.site.urls)),
 ]

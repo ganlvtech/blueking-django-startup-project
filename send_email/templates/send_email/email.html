@@ -1,0 +1,20 @@
+<div style="
+    width: 640px;
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.2);
+">
+    <h1 style="
+        margin: 0;
+        padding: 1em;
+        color: #047;
+        background: rgba(50, 210, 130, 0.2);
+        text-align: center;
+    ">{{ title }}</h1>
+    <div style="
+        padding: 1em;
+        text-indent: 2em;
+    ">
+        {% for line in lines %}
+            <p>{{ line }}</p>
+        {% endfor %}
+    </div>
+</div>

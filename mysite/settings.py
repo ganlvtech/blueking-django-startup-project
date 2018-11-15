@@ -12,10 +12,10 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
 from . import secrets
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -27,7 +27,6 @@ SECRET_KEY = secrets.SECRET_KEY
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -74,7 +73,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
@@ -108,16 +106,15 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
 
-
 # djcelery
 # http://docs.celeryproject.org/en/3.1/django/first-steps-with-django.html
 import djcelery  # NOQA
+
 djcelery.setup_loader()
 INSTALLED_APPS += ('djcelery',)
 # CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
@@ -129,12 +126,10 @@ INSTALLED_APPS += ('kombu.transport.django',)
 # Celery beat periodic tasks
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
-
 # Content Security Policy
 # https://django-csp.readthedocs.io/en/latest/configuration.html
 CSP_FRAME_ANCESTORS = 'bk.tencent.com'
 CSP_DEFAULT_SRC = ("'self'", "'unsafe-inline'", 'data:', 'o.qcloud.com')
-
 
 # File Upload
 # https://docs.djangoproject.com/en/1.8/topics/http/file-uploads/
@@ -143,10 +138,17 @@ CSP_DEFAULT_SRC = ("'self'", "'unsafe-inline'", 'data:', 'o.qcloud.com')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'USERRES')
 MEDIA_URL = '/upload/'
 
+EMAIL_HOST = secrets.EMAIL_HOST
+EMAIL_HOST_USER = secrets.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = secrets.EMAIL_HOST_PASSWORD
+EMAIL_PORT = secrets.EMAIL_PORT
+EMAIL_USE_TLS = True
+
 INSTALLED_APPS += (
     'home',
     'myutils',
     'celery_test',
     'file_upload',
     'golang',
+    'send_email',
 )
