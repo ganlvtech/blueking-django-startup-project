@@ -151,4 +151,5 @@ INSTALLED_APPS += (
     'file_upload',
     'golang',
     'send_email',
+    'blueking_api',
 )

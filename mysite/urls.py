@@ -19,6 +19,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.static import serve
 
+import blueking_api.urls
 import celery_test.urls
 import file_upload.urls
 import golang.urls
@@ -36,6 +37,7 @@ urlpatterns = [
     url(r'^celery/', include(celery_test.urls, namespace='celery')),
     url(r'^upload/', include(file_upload.urls, namespace='upload')),
     url(r'^go/', include(golang.urls, namespace='golang')),
+    url(r'^bkapi/', include(blueking_api.urls, namespace='bkapi')),
     url(r'^mail/', include(send_email.urls, namespace='mail')),
     url(r'^admin/', include(admin.site.urls)),
 ]
