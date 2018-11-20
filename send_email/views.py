@@ -33,8 +33,8 @@ def index(request):
     send_mail(
         subject,
         content,
-        'ganlv@outlook.com',
-        ['ganlvtech@qq.com'],
+        settings.EMAIL_HOST_USER,
+        [settings.EMAIL_HOST_USER],
         html_message=html_content
     )
 
