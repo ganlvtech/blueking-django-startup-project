@@ -30,8 +30,8 @@
                     <li class="nav-item{% if navbar.about %} active{% endif %}">
                         <a class="nav-link" href="{% url 'home:about' %}">关于</a>
                     </li>
-                    <li class="nav-item{% if navbar.license %} active{% endif %}">
-                        <a class="nav-link" href="{% url 'home:license' %}">License</a>
+                    <li class="nav-item{% if navbar.bkapi %} active{% endif %}">
+                        <a class="nav-link" href="{% url 'bkapi:index' %}">API</a>
                     </li>
                     <li class="nav-item dropdown{% if navbar.utils %} active{% endif %}">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -95,8 +95,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="https://github.com/ganlvtech">Copyright &copy; 2018 Ganlv</a>
                 </li>
-                <li class="nav-item{% if navbar.about %} active{% endif %}">
-                    <a class="nav-link" href="/license/">MIT License</a>
+                <li class="nav-item{% if navbar.license %} active{% endif %}">
+                    <a class="nav-link" href="{% url 'home:license' %}">MIT License</a>
                 </li>
             </ul>
             <ul class="navbar-nav">

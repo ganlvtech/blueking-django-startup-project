@@ -1,6 +1,11 @@
 from django.http import JsonResponse
+from django.shortcuts import render
 
-from .models import BlueKingApi
+from .blueking_api import BlueKingApi
+
+
+def index(request):
+    return render(request, 'blueking_api/index.html')
 
 
 def get_app_access_token(request):
@@ -47,6 +52,15 @@ def get_openid_openkey(request):
 def verify_openid_openkey(request):
     bkapi = BlueKingApi()
     result = bkapi.verify_openid_openkey(
+        openid=request.GET.get('openid'),
+        openkey=request.GET.get('openkey'),
+    )
+    return JsonResponse(result)
+
+
+def get_auth_token(request):
+    bkapi = BlueKingApi()
+    result = bkapi.get_auth_token(
         openid=request.GET.get('openid'),
         openkey=request.GET.get('openkey'),
     )

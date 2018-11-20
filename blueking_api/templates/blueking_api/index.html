@@ -1,0 +1,26 @@
+{% extends "home/base.html" %}
+
+{% block title %}Blue King API- {% endblock %}
+
+{% block jumbotron %}
+    <h1>蓝鲸 API</h1>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <ul>
+            <li><a href="{% url 'bkapi:get_app_access_token' %}">get_app_access_token</a></li>
+            <li><a href="{% url 'bkapi:get_user_access_token' %}">get_user_access_token</a></li>
+            <li><a href="{% url 'bkapi:refresh_user_access_token' %}">refresh_user_access_token</a></li>
+            <li><a href="{% url 'bkapi:get_user_info' %}">get_user_info</a></li>
+            <li><a href="{% url 'bkapi:get_openid_openkey' %}">get_openid_openkey</a></li>
+            <li><a href="{% url 'bkapi:verify_openid_openkey' %}">verify_openid_openkey</a></li>
+            <li><a href="{% url 'bkapi:get_auth_token' %}">get_auth_token</a></li>
+            <li><a href="{% url 'bkapi:send_email' %}">send_email</a></li>
+            <li><a href="{% url 'bkapi:send_sms' %}">send_sms</a></li>
+        </ul>
+    </div>
+{% endblock %}
+
+
+

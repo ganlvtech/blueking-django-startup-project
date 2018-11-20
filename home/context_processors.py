@@ -20,6 +20,7 @@ def navbar(request):
             'docs': path_info == '/docs/',
             'about': path_info == '/about/',
             'license': path_info == '/license/',
+            'bkapi': path_info == '/bkapi/',
             'utils': path_info.startswith('/utils/'),
         }
     }
