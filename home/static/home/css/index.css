@@ -6,8 +6,15 @@
     margin-top: -3px;
 }
 
+.avatar-img {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin: -1em -0.5em -0.7em;
+    border-radius: 50%;
+}
+
 .blueking-background svg {
-    color: rgb(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.5);
     fill: currentColor;
     height: 20rem;
     width: 27em;

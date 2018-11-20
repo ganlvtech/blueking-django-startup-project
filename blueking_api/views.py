@@ -2,8 +2,10 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from .blueking_api import BlueKingApi
+from .decorators import must_login_blue_king
 
 
+@must_login_blue_king
 def index(request):
     return render(request, 'blueking_api/index.html')
 

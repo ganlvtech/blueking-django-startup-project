@@ -49,6 +49,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'csp.middleware.CSPMiddleware',
+    'blueking_api.middlewares.SaveOpenIdOpenKeyToSession'
 )
 
 ROOT_URLCONF = 'mysite.urls'
@@ -96,7 +97,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'zh-cn'
+LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = 'Asia/Shanghai'
 
@@ -129,7 +130,13 @@ CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 # Content Security Policy
 # https://django-csp.readthedocs.io/en/latest/configuration.html
 CSP_FRAME_ANCESTORS = 'bk.tencent.com'
-CSP_DEFAULT_SRC = ("'self'", "'unsafe-inline'", 'data:', 'o.qcloud.com')
+CSP_DEFAULT_SRC = (
+    "'self'",
+    "'unsafe-inline'",
+    'data:',
+    'o.qcloud.com',
+    'q1.qlogo.cn',
+)
 
 # File Upload
 # https://docs.djangoproject.com/en/1.8/topics/http/file-uploads/

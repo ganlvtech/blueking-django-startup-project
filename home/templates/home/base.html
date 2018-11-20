@@ -61,9 +61,6 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" target="_blank" href="https://bk.tencent.com/campus/developer-center/">蓝鲸开发者中心</a>
-                    </li>
                     <li class="nav-item d-none">
                         <a class="nav-link" target="_blank" href="https://github.com/ganlvtech/blueking-django-startup-project">
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 16 16" width="24" height="24" class="github-logo">
@@ -71,6 +68,18 @@
                             </svg>
                         </a>
                     </li>
+                    {% if not request.session.nick_name %}
+                        <li class="nav-item">
+                            <a class="nav-link" target="_blank" href="https://bk.tencent.com/campus/developer-center/">蓝鲸开发者中心</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" target="_blank" href="https://bk.tencent.com/campus/developer-center/">{{ request.session.nick_name }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" target="_blank" href="https://bk.tencent.com/campus/developer-center/"><img src="{{ request.session.avatar_url }}" class="avatar-img" alt="avatar"></a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
