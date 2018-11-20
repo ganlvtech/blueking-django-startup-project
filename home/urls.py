@@ -6,6 +6,10 @@ from django.views.static import serve
 from . import views
 
 urlpatterns = [
+    url(r'^settings.py$', serve, {
+        'path': 'settings.py',
+        'document_root': os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    }, name='settings.py'),
     url(r'^$', views.index, name='index'),
     url(r'^docs/$', views.docs, name='docs'),
     url(r'^about/$', views.about, name='about'),

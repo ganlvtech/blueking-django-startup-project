@@ -60,5 +60,7 @@ def guess_type(path):
             else:
                 content_type = 'text/plain; charset=utf-8'
                 break
+    elif ';' not in content_type:
+        content_type += '; charset=utf-8'
 
     return content_type, encoding

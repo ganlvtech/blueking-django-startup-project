@@ -28,10 +28,6 @@ import myutils.urls
 import send_email.urls
 
 urlpatterns = [
-    url(r'^settings.py$', serve, {
-        'path': 'settings.py',
-        'document_root': os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    }, name='settings.py'),
     url(r'^', include(home.urls, namespace='home')),
     url(r'^utils/', include(myutils.urls, namespace='utils')),
     url(r'^celery/', include(celery_test.urls, namespace='celery')),

@@ -3,7 +3,10 @@
 {% block title %}Blue King API- {% endblock %}
 
 {% block jumbotron %}
-    <h1>蓝鲸 API</h1>
+    <h1 class="mb-4">蓝鲸 API</h1>
+    <p class="lead mb-4">使用一个简化的 <a href="{% url 'utils:files' %}?path=./blueking_api/blueking_api.py" target="_blank" rel="noopener"><code>blueking_api.py</code></a>，即可接入蓝鲸 API。</p>
+    <p class="small">你可能认为蓝鲸智云为您提供的账户系统并不非常符合需求，可能有一些多余的功能不利于初学者学习。</p>
+    <p class="small">这个仓库为您提供一个扁平化的 <code>blueking_api.py</code>，你可以使用它来接入蓝鲸 API，按照自己的意愿构建用户系统。</p>
 {% endblock %}
 
 {% block main %}
