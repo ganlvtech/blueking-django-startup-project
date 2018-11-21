@@ -124,8 +124,8 @@ class BlueKingApi:
     def develop_login_url(self, redirect_url, plain=False):
         """本地测试时若使用蓝鲸登录，跳转的 URL
 
-        :param redirect_url 返回页面的连接
-        :param plain bool 是否使用内嵌式小窗登录
+        :param redirect_url: 返回页面的连接
+        :param plain: True|False 是否使用内嵌式小窗登录
         :return 登录的 URL
         """
         c_url = self.cross_domain_prefix + '?' + urllib.urlencode({
@@ -157,7 +157,7 @@ class BlueKingApi:
     def transform_uin(uin):
         """转换 uin 格式
 
-        :param uin cookie 中的 uin
+        :param uin: cookie 中的 uin
         :return 正常格式的 QQ 号，不带 o0 前缀
         :rtype str
         """
@@ -169,8 +169,8 @@ class BlueKingApi:
     def get_openid_openkey(self, uin, skey):
         """通过 uin 和 skey 获取 openid 和 openkey
 
-        :param uin 正常格式的 QQ 号，不带 o0 前缀
-        :param skey 带 @ 前缀
+        :param uin: 正常格式的 QQ 号，不带 o0 前缀（如果有的话也会自动去掉）
+        :param skey: cookie 中的 skey
         """
         uin = self.transform_uin(uin)
         url = urlparse.urljoin(self.component_system_host, 'compapi/oidb/get_openid_openkey/')

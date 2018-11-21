@@ -49,7 +49,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'csp.middleware.CSPMiddleware',
-    'blueking_api.middlewares.SaveOpenIdOpenKeyToSession'
+    'blueking_api.middlewares.CheckLogin'
 )
 
 ROOT_URLCONF = 'mysite.urls'

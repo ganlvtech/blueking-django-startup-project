@@ -1,13 +1,13 @@
 from django.http import JsonResponse
-from django.shortcuts import render
 
+from home.utils import render_special_markdown_template
 from .blueking_api import BlueKingApi
 from .decorators import must_login_blue_king
 
 
 @must_login_blue_king
 def index(request):
-    return render(request, 'blueking_api/index.html')
+    return render_special_markdown_template(request, 'blueking_api/index.html', 'docs/blueking_api.md')
 
 
 def get_app_access_token(request):

@@ -5,23 +5,17 @@
 {% block jumbotron %}
     <h1 class="mb-4">蓝鲸 API</h1>
     <p class="lead mb-4">使用一个简化的 <a href="{% url 'utils:files' %}?path=./blueking_api/blueking_api.py" target="_blank" rel="noopener"><code>blueking_api.py</code></a>，即可接入蓝鲸 API。</p>
-    <p class="small">你可能认为蓝鲸智云为您提供的账户系统并不非常符合需求，可能有一些多余的功能不利于初学者学习。</p>
+    <p class="small">你可能认为蓝鲸开发框架已配置好的账户系统并不符合您的需求，或者认为代码过于复杂不利于初学者学习。</p>
     <p class="small">这个仓库为您提供一个扁平化的 <code>blueking_api.py</code>，你可以使用它来接入蓝鲸 API，按照自己的意愿构建用户系统。</p>
 {% endblock %}
 
 {% block main %}
     <div class="container">
-        <ul>
-            <li><a href="{% url 'bkapi:get_app_access_token' %}">get_app_access_token</a></li>
-            <li><a href="{% url 'bkapi:get_user_access_token' %}">get_user_access_token</a></li>
-            <li><a href="{% url 'bkapi:refresh_user_access_token' %}">refresh_user_access_token</a></li>
-            <li><a href="{% url 'bkapi:get_user_info' %}">get_user_info</a></li>
-            <li><a href="{% url 'bkapi:get_openid_openkey' %}">get_openid_openkey</a></li>
-            <li><a href="{% url 'bkapi:verify_openid_openkey' %}">verify_openid_openkey</a></li>
-            <li><a href="{% url 'bkapi:get_auth_token' %}">get_auth_token</a></li>
-            <li><a href="{% url 'bkapi:send_email' %}">send_email</a></li>
-            <li><a href="{% url 'bkapi:send_sms' %}">send_sms</a></li>
-        </ul>
+        <div class="content my-4">
+            <div class="markdown-body">
+                {{ content|safe }}
+            </div>
+        </div>
     </div>
 {% endblock %}
 
