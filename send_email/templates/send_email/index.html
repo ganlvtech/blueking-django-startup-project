@@ -16,6 +16,9 @@
             {% endif %}
 
             <div class="col-lg-8">
+                <div class="alert alert-info" role="alert">
+                    演示服务器不内置 SMTP 账号，你需要输入你自己的 SMTP 账号密码来发送邮件，我们不会保存你的任何账号信息
+                </div>
                 {% if ok %}
                     <div class="alert alert-success" role="alert">
                         邮件已发送
@@ -24,13 +27,37 @@
                     <div class="alert alert-danger" role="alert">
                         {{ error }}
                     </div>
-                {% endif %}
-                <form method="post">
-                    {% csrf_token %}
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary px-5">发送</button>
+                        <a href="{% url 'mail:index' %}" class="btn btn-primary px-5">返回</a>
                     </div>
-                </form>
+                {% else %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="form-input-host">SMTP 服务器</label>
+                            <input type="text" name="host" value="smtp.qq.com" class="form-control" id="form-input-host" placeholder="请输入 SMTP 服务器">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-input-port">SMTP 服务端口</label>
+                            <input type="text" name="port" value="25" class="form-control" id="form-input-port" placeholder="请输入 SMTP 端口">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-input-username">SMTP 账号</label>
+                            <input type="text" name="username" value="@qq.com" class="form-control" id="form-input-username" placeholder="请输入 SMTP 账号">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-input-password">SMTP 密码</label>
+                            <input type="password" name="password" class="form-control" id="form-input-password" placeholder="请输入 SMTP 密码">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-input-email">目标邮箱</label>
+                            <input type="text" name="email" class="form-control" id="form-input-email" placeholder="请输入目标邮箱">
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary px-5">发送</button>
+                        </div>
+                    </form>
+                {% endif %}
             </div>
         </div>
     </div>

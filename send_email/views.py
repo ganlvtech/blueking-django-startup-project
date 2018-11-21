@@ -25,18 +25,36 @@ def index(request):
         })
 
     from django.conf import settings
-    if not settings.EMAIL_HOST_PASSWORD:
+    host = request.POST.get('host', settings.EMAIL_HOST)
+    port = int(request.POST.get('port', settings.EMAIL_PORT))
+    username = request.POST.get('username', settings.EMAIL_HOST_USER)
+    password = request.POST.get('password', settings.EMAIL_HOST_PASSWORD)
+    email = request.POST.get('email')
+    if not username or not password:
         return render(request, 'send_email/index.html', {
-            'error': u'未设置 SMTP 账号，禁止发送邮件'
+            'error': u'未设置 SMTP 账号，发送邮件失败'
         })
 
-    send_mail(
-        subject,
-        content,
-        settings.EMAIL_HOST_USER,
-        [settings.EMAIL_HOST_USER],
-        html_message=html_content
-    )
+    try:
+        from django.core.mail.backends.smtp import EmailBackend
+        connection = EmailBackend(
+            host=host,
+            port=port,
+            username=username,
+            password=password
+        )
+        send_mail(
+            subject,
+            content,
+            username,
+            [email],
+            html_message=html_content,
+            connection=connection
+        )
+    except Exception as e:
+        return render(request, 'send_email/index.html', {
+            'error': e.message
+        })
 
     return render(request, 'send_email/index.html', {
         'ok': True
