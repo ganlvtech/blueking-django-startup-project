@@ -7,4 +7,3 @@ try:
         counter.save()
 except:
     pass
-
