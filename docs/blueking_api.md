@@ -9,7 +9,7 @@
     * [get_user_info](/bkapi/get_user_info/)：通过用户的 `openid` 和 `openkey` 获取用户 QQ 号和头像
     * [get_openid_openkey](/bkapi/get_openid_openkey/)：通过 Cookie 中的 `uin` 和 `skey` 获取用户的 `openid` 和 `openkey`
     * [verify_openid_openkey](/bkapi/verify_openid_openkey/)：检查 `openid` 和 `openkey` 是否有效
-    * [get_auth_token](/bkapi/get_auth_token/)：通过用户的 `openid` 和 `openkey` 获取用户的 `auth_token`（似乎和 `access_token` 是一个东西，但是这个 API 可以从公网访问）
+    * [get_auth_token](/bkapi/get_auth_token/)：通过用户的 `openid` 和 `openkey` 获取用户的 `auth_token`（`auth_token` 似乎和 `access_token` 是相同的，这个 API 的功能似乎和 `get_user_access_token` 是相同的，但是这个可以从公网访问）
 
 * 通知组件 API
 
