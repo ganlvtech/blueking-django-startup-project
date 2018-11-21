@@ -48,8 +48,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'csp.middleware.CSPMiddleware',
-    'blueking_api.middlewares.CheckLogin'
 )
 
 ROOT_URLCONF = 'mysite.urls'
@@ -65,8 +63,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'home.context_processors.blueking',
-                'home.context_processors.navbar',
             ],
         },
     },
@@ -129,6 +125,7 @@ CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
 # Content Security Policy
 # https://django-csp.readthedocs.io/en/latest/configuration.html
+MIDDLEWARE_CLASSES += ('csp.middleware.CSPMiddleware',)
 CSP_FRAME_ANCESTORS = 'bk.tencent.com'
 CSP_DEFAULT_SRC = (
     "'self'",
@@ -145,18 +142,31 @@ CSP_DEFAULT_SRC = (
 MEDIA_ROOT = os.path.join(BASE_DIR, 'USERRES')
 MEDIA_URL = '/upload/'
 
+# Email
+# https://docs.djangoproject.com/en/1.8/topics/email/
 EMAIL_HOST = secrets.EMAIL_HOST
 EMAIL_HOST_USER = secrets.EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = secrets.EMAIL_HOST_PASSWORD
 EMAIL_PORT = secrets.EMAIL_PORT
 EMAIL_USE_TLS = True
 
+# my site settings
 INSTALLED_APPS += (
     'home',
+    'site_stats',
     'myutils',
     'celery_test',
     'file_upload',
     'golang',
     'send_email',
     'blueking_api',
+)
+MIDDLEWARE_CLASSES += (
+    'blueking_api.middlewares.CheckLogin',
+    'site_stats.middlewares.SiteStatistics',
+)
+TEMPLATES[0]['OPTIONS']['context_processors'] += (
+    'home.context_processors.blueking',
+    'home.context_processors.navbar',
+    'site_stats.context_processors.visit_count',
 )

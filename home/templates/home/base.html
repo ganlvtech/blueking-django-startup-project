@@ -75,7 +75,7 @@
 
     {% block main %}{% endblock %}
 
-    <footer class="navbar navbar-expand-sm navbar-dark bg-dark mt-4">
+    <footer class="navbar navbar-expand-md navbar-dark bg-dark mt-4">
         <div class="container">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -83,6 +83,9 @@
                 </li>
                 <li class="nav-item{% if navbar.license %} active{% endif %}">
                     <a class="nav-link" href="{% url 'home:license' %}">MIT License</a>
+                </li>
+                <li class="nav-item visit-count">
+                    <span class="nav-link">Visit counter: {{ visit_count }}</span>
                 </li>
             </ul>
             <ul class="navbar-nav">
