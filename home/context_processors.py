@@ -18,9 +18,9 @@ def navbar(request):
         'navbar': {
             'index': path_info == '/',
             'docs': path_info == '/docs/',
+            'bkapi': path_info == '/bkapi/',
+            'demos': path_info == '/demos/',
             'about': path_info == '/about/',
             'license': path_info == '/license/',
-            'bkapi': path_info == '/bkapi/',
-            'utils': path_info.startswith('/utils/'),
         }
     }

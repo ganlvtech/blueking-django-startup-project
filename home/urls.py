@@ -12,6 +12,7 @@ urlpatterns = [
     }, name='settings.py'),
     url(r'^$', views.index, name='index'),
     url(r'^docs/$', views.docs, name='docs'),
+    url(r'^demos/$', views.demos, name='demos'),
     url(r'^about/$', views.about, name='about'),
     url(r'^license/$', views.license, name='license'),
     url(r'^favicon.ico$', serve, {

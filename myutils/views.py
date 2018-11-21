@@ -13,7 +13,6 @@ def manage_createsuperuser(request):
         return render(request, 'myutils/manage_createsuperuser.html', {
             'superuser_exists': True
         })
-        # return HttpResponse("Superuser already exists!")
 
     if request.method != 'POST':
         return render(request, 'myutils/manage_createsuperuser.html')

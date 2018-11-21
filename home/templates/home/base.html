@@ -28,36 +28,13 @@
                         <a class="nav-link" href="{% url 'home:docs' %}">文档</a>
                     </li>
                     <li class="nav-item{% if navbar.bkapi %} active{% endif %}">
-                        <a class="nav-link" href="{% url 'bkapi:index' %}">蓝鲸 API</a>
+                        <a class="nav-link" href="{% url 'bkapi:index' %}">API</a>
+                    </li>
+                    <li class="nav-item{% if navbar.demos %} active{% endif %}">
+                        <a class="nav-link" href="{% url 'home:demos' %}">演示</a>
                     </li>
                     <li class="nav-item{% if navbar.about %} active{% endif %}">
                         <a class="nav-link" href="{% url 'home:about' %}">关于</a>
-                    </li>
-                    <li class="nav-item dropdown{% if navbar.utils %} active{% endif %}">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            演示
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{% url 'upload:index' %}">上传文件</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'utils:pyinfo' %}">系统信息</a>
-                            <a class="dropdown-item" href="{% url 'utils:files' %}">浏览文件</a>
-                            <a class="dropdown-item" href="{% url 'utils:hosts' %}">hosts</a>
-                            <a class="dropdown-item" href="{% url 'utils:users' %}">用户和用户组</a>
-                            <a class="dropdown-item" href="{% url 'utils:createsuperuser' %}">创建超级用户</a>
-                            <a class="dropdown-item" href="{% url 'utils:reset_db' %}">重置数据库</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'golang:index' %}">执行 Go 程序</a>
-                            <a class="dropdown-item" href="{% url 'golang:stream' %}">流式响应</a>
-                            <a class="dropdown-item" href="{% url 'golang:nowait' %}">直接返回 PID</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'celery:index' %}">一个基于 Celery 的计数器</a>
-                            <a class="dropdown-item" href="{% url 'celery:add' %}">计数器 +1</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'mail:index' %}">SMTP 发送邮件</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'admin:index' %}">后台管理</a>
-                        </div>
                     </li>
                 </ul>
                 <ul class="navbar-nav">

@@ -1,58 +1,28 @@
-from django.shortcuts import render
+# coding=utf-8
+from .utils import render_markdown_template, render_plain_text_template, render_special_markdown_template
 
 
 def index(request):
-    import os
-    from .utils import markdown_from_file
-
-    getting_started_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'docs/getting-started.md')
-
-    getting_started = markdown_from_file(getting_started_path)
-
-    return render(request, 'home/index.html', {
-        'getting_started': getting_started,
-    })
+    return render_special_markdown_template(request, 'home/index.html', 'docs/getting-started.md')
 
 
 def about(request):
-    import os
-    from .utils import markdown_from_file
-
-    about_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'docs/about.md')
-    about = markdown_from_file(about_path)
-
-    return render(request, 'home/about.html', {
-        'about': about
-    })
+    return render_markdown_template(request, u'About', u'关于蓝鲸云平台', 'docs/about.md')
 
 
 def docs(request):
-    import os
-    from .utils import markdown_from_file
+    return render_markdown_template(request,
+                                    u'Documentations',
+                                    u'A Django Startup Project For Tencent Blueking',
+                                    'docs/docs.md',
+                                    (
+                                        u'A Simplified Django Settings For Tencent Blueking',
+                                    ))
 
-    docs_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'docs/docs.md')
 
-    docs = markdown_from_file(docs_path)
-
-    return render(request, 'home/docs.html', {
-        'docs': docs
-    })
+def demos(request):
+    return render_markdown_template(request, u'Online Demos', u'在线演示', 'docs/demos.md')
 
 
 def license(request):
-    import os
-
-    path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'LICENSE')
-
-    if not os.path.isfile(path):
-        content = ''
-    else:
-        with open(path, 'rb') as fh:
-            data = fh.read()
-        content = data.decode('utf-8')
-
-    return render(request, 'home/plain_text.html', {
-        'title': 'License',
-        'heading': 'The MIT License',
-        'content': content
-    })
+    return render_plain_text_template(request, u'License', u'The MIT License', 'LICENSE')

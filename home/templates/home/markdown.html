@@ -1,0 +1,22 @@
+{% extends "home/base.html" %}
+
+{% block title %}{{ title }} - {% endblock %}
+
+{% block jumbotron %}
+    {% if leads %}
+        <h1 class="mb-4">{{ heading }}</h1>
+        {% for lead in leads %}
+            <p class="lead">{{ lead }}</p>
+        {% endfor %}
+    {% else %}
+        <h1>{{ heading }}</h1>
+    {% endif %}
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <div class="markdown-body">
+            {{ content|safe }}
+        </div>
+    </div>
+{% endblock %}
