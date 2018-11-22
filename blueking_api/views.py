@@ -1,13 +1,20 @@
 from django.http import JsonResponse
+from django.shortcuts import render
 
 from home.utils import render_special_markdown_template
 from .blueking_api import BlueKingApi
-from .decorators import must_login_blue_king
+from .decorators import check_permission, must_login_blue_king
 
 
 @must_login_blue_king
 def index(request):
     return render_special_markdown_template(request, 'blueking_api/index.html', 'docs/blueking_api.md')
+
+
+@must_login_blue_king
+@check_permission('permission_test')
+def permission_test(request):
+    return render(request, 'blueking_api/permission_test.html')
 
 
 def get_app_access_token(request):
@@ -65,6 +72,14 @@ def get_auth_token(request):
     result = bkapi.get_auth_token(
         openid=request.GET.get('openid', request.session.get('openid')),
         openkey=request.GET.get('openkey', request.session.get('openkey')),
+    )
+    return JsonResponse(result)
+
+
+def get_permissions(request):
+    bkapi = BlueKingApi()
+    result = bkapi.get_permissions(
+        openid=request.GET.get('openid', request.session.get('openid')),
     )
     return JsonResponse(result)
 

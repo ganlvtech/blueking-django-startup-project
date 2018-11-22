@@ -23,9 +23,13 @@ def send_email(request):
     return JsonResponse(result)
 ```
 """
-
+import base64
+import hashlib
+import hmac
 import json
 import os
+import random
+import time
 import urllib
 import urlparse
 
@@ -36,18 +40,24 @@ class BlueKingApi:
     app_code = ''
     app_secret = ''
     env_name = ''
+    permission_api_url = ''
+    permission_console_url = ''
+    run_mode = ''
     oauth_api_url = ''
     component_system_host = ''
     cross_domain_prefix = ''
     login_url = ''
     plain_login_url = ''
 
-    def __init__(self, app_code=None, app_secret=None, env_name=None, oauth_api_url=None, component_system_host=None,
+    def __init__(self, app_code=None, app_secret=None, env_name=None,
+                 permission_api_url=None, permission_console_url=None, run_mode=None,
+                 oauth_api_url=None, component_system_host=None,
                  cross_domain_prefix=None, login_url=None, plain_login_url=None):
         if app_code is None:
             app_code = os.environ.get('BK_APP_CODE', '')
         if app_secret is None:
             app_secret = os.environ.get('BK_SECRET_KEY', '')
+
         if env_name is None:
             django_conf_module = os.environ.get('DJANGO_CONF_MODULE', '')
             if 'prod' in django_conf_module:
@@ -56,6 +66,20 @@ class BlueKingApi:
                 env_name = 'test'
         elif env_name not in ('prod', 'test'):
             env_name = 'prod'
+
+        if permission_api_url is None:
+            permission_api_url = os.environ.get('BK_PERMISSION_API_URL', 'http://login.o.qcloud.com/')
+        if permission_console_url is None:
+            permission_console_url = os.environ.get('BK_PERMISSION_CONSOLE_URL', 'http://bk.tencent.com/campus/')
+        if run_mode is None:
+            django_conf_module = os.environ.get('DJANGO_CONF_MODULE', '')
+            if 'prod' in django_conf_module:
+                run_mode = 'PRODUCT'
+            elif 'test' in django_conf_module:
+                run_mode = 'TEST'
+            else:
+                run_mode = 'DEVELOP'
+
         if oauth_api_url is None:
             oauth_api_url = 'https://apigw.o.qcloud.com/'
         if component_system_host is None:
@@ -69,9 +93,15 @@ class BlueKingApi:
             login_url = os.environ.get('BK_PERMISSION_API_URL', 'http://login.o.qcloud.com/')
         if plain_login_url is None:
             plain_login_url = 'http://login.o.qcloud.com/plain/'
+
         self.app_code = app_code
         self.app_secret = app_secret
         self.env_name = env_name
+
+        self.permission_api_url = permission_api_url
+        self.permission_console_url = permission_console_url
+        self.run_mode = run_mode
+
         self.oauth_api_url = oauth_api_url
         self.component_system_host = component_system_host
         self.cross_domain_prefix = cross_domain_prefix
@@ -121,11 +151,132 @@ class BlueKingApi:
         response = requests.get(url, params=params, timeout=10, verify=False)
         return response.json()
 
-    def develop_login_url(self, redirect_url, plain=False):
+    def signature(self, msg):
+        """签名算法
+
+        :param msg: byte string
+        :return: byte string
+        """
+        return base64.b64encode(hmac.new(self.app_secret, msg, hashlib.sha1).digest())
+
+    def permission_api_sign_params(self, url, params, data=None):
+        """权限 API 签名
+
+        :param url: byte string
+        :param params: dict
+        :param data: byte string
+        :return: 签名后的 params
+        """
+        params.update({
+            'Nonce': random.randint(100000, 999999),
+            'Timestamp': int(time.time()),
+        })
+        if not data:
+            method = 'GET'
+            params_to_sign = params
+        else:
+            method = 'POST'
+            params_to_sign = params.copy()
+            params_to_sign.update({
+                'Data': data,
+            })
+        sorted_query = '&'.join(['%s=%s' % (i, params[i]) for i in sorted(params_to_sign)])
+        url_components = urlparse.urlparse(url)
+        raw_msg = '%s%s%s?%s' % (method, url_components.netloc, url_components.path, sorted_query)
+        params.update({
+            'Signature': self.signature(raw_msg),
+        })
+        return params
+
+    def get_permissions(self, openid):
+        """获取用户所有权限信息
+
+        返回值参考
+
+            {
+                "code": "00",
+                "permission": [
+                    {
+                        "function_code": "visit_index",
+                        "biz_id": -1
+                    }
+                ],
+                "permission_role": -1,
+                "result": true,
+                "message": "获取权限列表成功",
+                "data": []
+            }
+
+        permission_role: -1 为普通用户, 2 为超级管理员
+        biz_id: 业务 id，默认为 -1，似乎并没有用
+
+        :param openid:
+        :return
+        :rtype dict
+        """
+        url = urlparse.urljoin(self.permission_api_url, 'permission/get_permissions/')
+        params = {
+            'app_code': self.app_code,
+            'uin': openid,
+        }
+        params = self.permission_api_sign_params(url, params)
+        response = requests.get(url, params=params, timeout=10, verify=False)
+        return response.json()
+
+    def check_failed_url(self, info='', is_ajax=False):
+        """权限不足提示页面的 URL
+
+        :param info: byte string 提示信息
+        :param is_ajax: True|False 是否是 ajax 请求
+        :return 权限不足提示页面的 URL
+        """
+        params = urllib.urlencode({
+            'app_code': self.app_code,
+            'run_mode': self.run_mode,
+            'info': info,
+        })
+        if is_ajax:
+            url = self.permission_console_url + 'permission_center/check_failed_ajax/?' + params
+        else:
+            url = self.permission_console_url + 'permission_center/check_failed/?' + params
+        return url
+
+    def component_api_sign_params(self, url, params, data=None):
+        """组件 API 签名
+
+        TODO 暂时未使用
+
+        :param url: byte string
+        :param params: dict
+        :param data: byte string
+        :return: 签名后的 params
+        """
+        params.update({
+            'bk_timestamp': int(time.time()),
+            'bk_nonce': random.randint(1, 2147483647),
+        })
+        if not data:
+            method = 'GET'
+            params_to_sign = params
+        else:
+            method = 'POST'
+            params_to_sign = params.copy()
+            params_to_sign.update({
+                'data': data,
+            })
+        sorted_query = '&'.join(['%s=%s' % (i, params[i]) for i in sorted(params_to_sign)])
+        url_components = urlparse.urlparse(url)
+        raw_msg = '%s%s?%s' % (method, url_components.path, sorted_query)
+        params.update({
+            'signature': self.signature(raw_msg),
+        })
+        return params
+
+    def develop_login_url(self, redirect_url, is_plain=False):
         """本地测试时若使用蓝鲸登录，跳转的 URL
 
         :param redirect_url: 返回页面的连接
-        :param plain: True|False 是否使用内嵌式小窗登录
+        :param is_plain: True|False 是否使用内嵌式小窗登录
         :return 登录的 URL
         """
         c_url = self.cross_domain_prefix + '?' + urllib.urlencode({
@@ -135,7 +286,7 @@ class BlueKingApi:
             'app_code': self.app_code,
             'c_url': c_url,
         })
-        if plain:
+        if is_plain:
             url = self.plain_login_url + '?' + params
         else:
             url = self.login_url + '?' + params

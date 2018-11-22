@@ -1,3 +1,4 @@
+# coding=utf-8
 from django.http import HttpResponseRedirect
 
 from .blueking_api import BlueKingApi
@@ -53,3 +54,22 @@ class MustLogin(object):
             api_response = bkapi.get_user_info(openid, openkey)
             request.session['nick_name'] = api_response['data']['nick_name']
             request.session['avatar_url'] = api_response['data']['avatar_url']
+
+
+class FetchUserPermission(object):
+    """获取用户拥有权限
+
+    必须放在 CheckLogin 或 MustLogin 之后
+    """
+
+    def process_request(self, request):
+        permission = request.session.get('permission')
+        permission_role = request.session.get('permission_role')
+        if not permission or not permission_role:
+            openid = request.session.get('openid')
+            if not openid:
+                return
+            bkapi = BlueKingApi()
+            api_response = bkapi.get_permissions(openid)
+            request.session['permission'] = api_response['permission']
+            request.session['permission_role'] = api_response['permission_role']

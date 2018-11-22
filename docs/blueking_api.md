@@ -1,8 +1,14 @@
+[当前页面](/bkapi/) 必须登录才能访问，另外有一个 [权限测试页面](/bkapi/permission_test/) 必须拥有响应权限才能访问，若要访问请到 [统一权限管理](http://bk.tencent.com/campus/permission_center/apply/) 页面申请 `权限测试页面` 权限
+
 * 内部 OAuth API（仅能在服务器内部网络访问）
 
     * [get_app_access_token](/bkapi/get_app_access_token/)：获取代表应用权限的 `access_token`
     * [get_user_access_token](/bkapi/get_user_access_token/)：通过用户的 `openid` 和 `openkey` 获取用户的 `access_token`（包括 `refresh_token`）
     * [refresh_user_access_token](/bkapi/refresh_user_access_token/)：通过 `refresh_token` 重新获取获取用户的 `access_token`
+
+* 用户权限 API
+
+    * [get_permissions](/bkapi/get_permissions/)：通过用户的 `openid` 获取用户在当前应用拥有的权限
 
 * 获取用户信息 API
 

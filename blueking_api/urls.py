@@ -4,9 +4,11 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^permission_test/', views.permission_test, name='permission_test'),
     url(r'^get_app_access_token/$', views.get_app_access_token, name='get_app_access_token'),
     url(r'^get_user_access_token/$', views.get_user_access_token, name='get_user_access_token'),
     url(r'^refresh_user_access_token/$', views.refresh_user_access_token, name='refresh_user_access_token'),
+    url(r'^get_permissions/$', views.get_permissions, name='get_permissions'),
     url(r'^get_user_info/$', views.get_user_info, name='get_user_info'),
     url(r'^get_openid_openkey/$', views.get_openid_openkey, name='get_openid_openkey'),
     url(r'^verify_openid_openkey/$', views.verify_openid_openkey, name='verify_openid_openkey'),
