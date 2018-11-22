@@ -1,6 +1,6 @@
 import subprocess
 
-from django.http import HttpResponse, StreamingHttpResponse
+from django.http import StreamingHttpResponse
 from django.shortcuts import render
 
 from .helpers import get_go_program_path
