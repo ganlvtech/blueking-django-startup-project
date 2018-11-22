@@ -1,4 +1,4 @@
-[当前页面](/bkapi/) 必须登录才能访问，另外有一个 [权限测试页面](/bkapi/permission_test/) 必须拥有响应权限才能访问，若要访问请到 [统一权限管理](http://bk.tencent.com/campus/permission_center/apply/) 页面申请 `权限测试页面` 权限
+[当前页面](/bkapi/) 必须登录才能访问，另外有一个 [权限测试页面](/bkapi/permission_test/) 必须拥有 `permission_test` 权限才能访问，若要访问请到 [统一权限管理](http://bk.tencent.com/campus/permission_center/apply/) 页面申请 `权限测试页面` 权限
 
 * 内部 OAuth API（仅能在服务器内部网络访问）
 
