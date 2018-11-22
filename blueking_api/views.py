@@ -52,8 +52,8 @@ def get_user_info(request):
 def get_openid_openkey(request):
     bkapi = BlueKingApi()
     result = bkapi.get_openid_openkey(
-        uin=request.GET.get('uin'),
-        skey=request.GET.get('skey'),
+        uin=request.GET.get('uin', request.COOKIES.get('uin')),
+        skey=request.GET.get('skey', request.COOKIES.get('skey')),
     )
     return JsonResponse(result)
 
