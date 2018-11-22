@@ -1,0 +1,73 @@
+{% extends "home/base.html" %}
+
+{% block title %}Celery - {% endblock %}
+
+{% block head_append %}
+    <style>
+        pre {
+            padding: 16px;
+            overflow: auto;
+            font-size: 85%;
+            line-height: 1.45;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+        }
+    </style>
+{% endblock %}
+
+{% block jumbotron %}
+    <h1 class="mb-4">任务状态</h1>
+    <p>你可以连续刷新这个页面，直到结果稳定。</p>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <div class="table-responsive my-4">
+            <table class="table table-hover table-bordered">
+                <tbody>
+                    <tr>
+                        <td>任务 id</td>
+                        <td>{{ task_id }}</td>
+                    </tr>
+                    {% if task_meta %}
+                        <tr>
+                            <td>状态</td>
+                            <td>{{ task_meta.status }}</td>
+                        </tr>
+                        <tr>
+                            <td>结果</td>
+                            <td>{{ task_meta.result }}</td>
+                        </tr>
+                        <tr>
+                            <td>完成时间</td>
+                            <td>{{ task_meta.date_done }}</td>
+                        </tr>
+                        <tr>
+                            <td>元数据</td>
+                            <td>
+                                <pre><code>{{ task_meta.meta }}</code></pre>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td>状态</td>
+                            <td>该任务不存在或暂时未被处理</td>
+                        </tr>
+                        <tr>
+                            <td>结果</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>完成时间</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>元数据</td>
+                            <td>-</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

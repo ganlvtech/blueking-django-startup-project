@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from djcelery.models import TaskMeta
 
 from . import tasks
 from .models import Counter
@@ -15,5 +16,14 @@ def index(request):
 def add(request):
     result = tasks.add.delay()
     return render(request, 'celery_test/add.html', {
-        'id': str(result)
+        'task_id': str(result)
+    })
+
+
+def status(request):
+    task_id = request.GET.get('task_id')
+    task_meta = TaskMeta.objects.filter(task_id=task_id).first()
+    return render(request, 'celery_test/status.html', {
+        'task_id': task_id,
+        'task_meta': task_meta,
     })
