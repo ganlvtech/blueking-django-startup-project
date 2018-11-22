@@ -1,0 +1,80 @@
+{% extends "home/base.html" %}
+
+{% block title %}Blue King API- {% endblock %}
+
+{% block jumbotron %}
+    <h1>访问记录</h1>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if logs.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ logs.previous_page_number }}">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% for page in paginator_pages %}
+                    {% if page < 0 %}
+                        <li class="page-item disabled"><a class="page-link" href="#">…</a></li>
+                    {% else %}
+                        <li class="page-item{% if page == logs.number %} active{% endif %}"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if logs.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ logs.next_page_number }}">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        <div class="table-responsive">
+            <table class="table table-sm table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Method</th>
+                        <th>Path</th>
+                        <th>IP</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in logs %}
+                        <tr>
+                            <td>{{ log.id }}</td>
+                            <td>{{ log.method }}</td>
+                            <td>{{ log.path }}</td>
+                            <td>{{ log.ip }}</td>
+                            <td>{{ log.created_at }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+
+

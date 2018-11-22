@@ -11,6 +11,10 @@
     * [创建超级用户](/utils/createsuperuser/)：类似于执行 `manage.py createsuperuser`，仅在数据库没有超级管理员时才可以使用
     * [重置数据库](/utils/reset_db/)：输入超级管理员的用户名和密码，删除全部表，重新执行 migrate
 
+* `site_stats` 模块
+
+    * [访问记录](/stats/)：列举全部访问记录
+
 * `golang` 模块
 
     * [执行 Go 程序](/go/)：同步执行 Go 程序，在程序运行结束之后返回输出结果

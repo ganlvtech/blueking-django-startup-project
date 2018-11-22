@@ -85,7 +85,7 @@
                     <a class="nav-link" href="{% url 'home:license' %}">MIT License</a>
                 </li>
                 <li class="nav-item visit-count">
-                    <span class="nav-link">Visit counter: {{ visit_count }}</span>
+                    <a class="nav-link" href="{% url 'stats:index' %}">Visit counter: {{ visit_count }}</a>
                 </li>
             </ul>
             <ul class="navbar-nav">

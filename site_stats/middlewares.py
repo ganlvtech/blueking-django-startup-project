@@ -7,6 +7,9 @@ class SiteStatistics(object):
     visit_log = None
 
     def process_request(self, request):
+        if request.path_info.startswith('/admin/'):
+            return
+
         counter = Counter.objects.first()
         counter.value += 1
         counter.save()
@@ -20,7 +23,7 @@ class SiteStatistics(object):
             if openkey or nick_name:
                 user_info = nick_name + ' ' + openkey
             self.visit_log.user_info = user_info[:255]
-            self.visit_log.path = request.get_full_path()[:1024]
+            self.visit_log.path = request.path[:1024]
             self.visit_log.method = request.method
             from site_stats.utils import get_client_ip
             self.visit_log.ip = get_client_ip(request)
@@ -33,11 +36,12 @@ class SiteStatistics(object):
 
     def process_response(self, request, response):
         try:
-            self.visit_log.response_code = response.status_code
-            if response is HttpResponse:
-                self.visit_log.response_length = len(response.content)
-                self.visit_log.response_body = response.content[:4096]
-            self.visit_log.save()
+            if self.visit_log:
+                self.visit_log.response_code = response.status_code
+                if response is HttpResponse:
+                    self.visit_log.response_length = len(response.content)
+                    self.visit_log.response_body = response.content[:4096]
+                self.visit_log.save()
         except Exception as e:
             print(e)
 
