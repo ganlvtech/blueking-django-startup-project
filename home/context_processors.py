@@ -18,8 +18,14 @@ def navbar(request):
         'navbar': {
             'index': path_info == '/',
             'docs': path_info == '/docs/',
-            'bkapi': path_info == '/bkapi/',
-            'demos': path_info == '/demos/',
+            'bkapi': path_info.startswith('/bkapi/'),
+            'demos': path_info == '/demos/'
+                     or path_info.startswith('/utils/')
+                     or path_info.startswith('/stats/')
+                     or path_info.startswith('/celery/')
+                     or path_info.startswith('/upload/')
+                     or path_info.startswith('/go/')
+                     or path_info.startswith('/mail/'),
             'about': path_info == '/about/',
             'license': path_info == '/license/',
         }
