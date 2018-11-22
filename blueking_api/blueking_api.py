@@ -114,6 +114,19 @@ class BlueKingApi:
         注意 client_credentials 并没有访问敏感数据的权限，这个 Access Token 只是用来访问公开数据的
 
         TODO 这个 API 并没有被使用过
+
+        返回值示例
+
+            {
+                "message": "",
+                "code": "0",
+                "data": {
+                    "access_token": "abcefghijklmnABCDEFGHIJKL12345",
+                    "scope": "",
+                    "expires_in": 15551999
+                },
+                "result": true
+            }
         """
         url = urlparse.urljoin(self.oauth_api_url, 'auth_api/token/')
         params = {
@@ -126,7 +139,24 @@ class BlueKingApi:
         return response.json()
 
     def get_user_access_token(self, openid, openkey):
-        """获取用户的 Access Token"""
+        """获取用户的 Access Token
+
+        返回值示例
+
+            {
+                "message": "",
+                "code": "0",
+                "data": {
+                    "user_id": "123456789",
+                    "access_token": "abcefghijklmnABCDEFGHIJKL12345",
+                    "expires_in": 15551999,
+                    "user_type": "uin",
+                    "scope": "",
+                    "refresh_token": "12345ABCDEFGHIJKLabcefghijklmn"
+                },
+                "result": true
+            }
+        """
         url = urlparse.urljoin(self.oauth_api_url, 'auth_api/token/')
         params = {
             'app_code': self.app_code,
@@ -140,7 +170,24 @@ class BlueKingApi:
         return response.json()
 
     def refresh_user_access_token(self, refresh_token):
-        """获取用户的 Access Token"""
+        """获取用户的 Access Token
+
+        返回值示例
+
+            {
+                "message": "",
+                "code": "0",
+                "data": {
+                    "user_id": "123456789",
+                    "access_token": "abcefghijklmnABCDEFGHIJKL12345",
+                    "expires_in": 15551999,
+                    "user_type": "uin",
+                    "scope": "",
+                    "refresh_token": "12345ABCDEFGHIJKLabcefghijklmn"
+                },
+                "result": true
+            }
+        """
         url = urlparse.urljoin(self.oauth_api_url, 'auth_api/refresh_token/')
         params = {
             'app_code': self.app_code,
@@ -198,6 +245,10 @@ class BlueKingApi:
                 "permission": [
                     {
                         "function_code": "visit_index",
+                        "biz_id": -1
+                    },
+                    {
+                        "function_code": "permission_test",
                         "biz_id": -1
                     }
                 ],
@@ -293,7 +344,22 @@ class BlueKingApi:
         return url
 
     def get_user_info(self, openid, openkey):
-        """获取用户基本信息"""
+        """获取用户基本信息
+
+        返回值示例
+
+            {
+                "message": "",
+                "code": "00",
+                "data": {
+                    "nick_name": "123456789",
+                    "openid": "0123456789ABCDEFGH",
+                    "avatar_url": "http://q1.qlogo.cn/g?b=qq&nk=123456789&s=100&t=1540000000"
+                },
+                "result": true,
+                "request_id": "0123456789abcdef0123456789abcdef"
+            }
+        """
         url = urlparse.urljoin(self.component_system_host, 'compapi/oidb/get_user_info/')
         params = {
             'app_code': self.app_code,
@@ -320,10 +386,26 @@ class BlueKingApi:
     def get_openid_openkey(self, uin, skey):
         """通过 uin 和 skey 获取 openid 和 openkey
 
+        返回值示例
+
+            {
+                "message": "",
+                "code": "00",
+                "data": {
+                    "openid": "0123456789ABCDEFGH",
+                    "openkey": "0123456789ABCDEFGHIJKLabcdefghijklmnopqrs-0_"
+                },
+                "result": true,
+                "request_id": "0123456789abcdef0123456789abcdef"
+            }
+
         :param uin: 正常格式的 QQ 号，不带 o0 前缀（如果有的话也会自动去掉）
         :param skey: cookie 中的 skey
         """
-        uin = self.transform_uin(uin)
+        try:
+            uin = self.transform_uin(uin)
+        except:
+            pass
         url = urlparse.urljoin(self.component_system_host, 'compapi/oidb/get_openid_openkey/')
         params = {
             'app_code': self.app_code,
@@ -335,7 +417,18 @@ class BlueKingApi:
         return response.json()
 
     def verify_openid_openkey(self, openid, openkey):
-        """验证 openid 和 openkey"""
+        """验证 openid 和 openkey
+
+        返回值示例
+
+            {
+                "message": "",
+                "code": "00",
+                "data": {},
+                "result": true,
+                "request_id": "0123456789abcdef0123456789abcdef"
+            }
+        """
         url = urlparse.urljoin(self.component_system_host, 'compapi/oidb/verify_openid_openkey/')
         params = {
             'app_code': self.app_code,
@@ -352,6 +445,27 @@ class BlueKingApi:
         Auth Token 似乎和 Access Token 是相同的
 
         TODO 这个 API 并没有被使用过
+
+        返回值示例
+
+            {
+                "message": "",
+                "code": "0",
+                "data": {
+                    "openid": "0123456789ABCDEFGH",
+                    "access_token": "abcefghijklmnABCDEFGHIJKL12345",
+                    "env_name": "test",
+                    "auth_token": "abcefghijklmnABCDEFGHIJKL12345",
+                    "app_code": "django",
+                    "expires_in": 15551999,
+                    "user_type": "uin",
+                    "scope": null,
+                    "grant_type": "authorization_code",
+                    "refresh_token": "12345ABCDEFGHIJKLabcefghijklmn"
+                },
+                "result": true,
+                "request_id": "0123456789abcdef0123456789abcdef"
+            }
         """
         url = urlparse.urljoin(self.component_system_host, 'compapi/auth/get_auth_token/')
         data = {
