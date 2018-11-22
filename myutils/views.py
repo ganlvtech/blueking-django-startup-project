@@ -1,7 +1,12 @@
 # coding=utf-8
+import os
+import sys
+
 from django.core.exceptions import ValidationError
 from django.http import FileResponse, HttpResponseForbidden, HttpResponseNotFound, HttpResponseNotModified
 from django.shortcuts import render
+
+from home.utils import render_plain_text_content
 
 
 def manage_createsuperuser(request):
@@ -91,8 +96,6 @@ def manage_reset_db(request):
 
 
 def hosts(request):
-    import os
-
     if os.name == 'nt':
         path = os.path.join(os.getenv('SYSTEMROOT', r'C:\Windows'), r'System32\drivers\etc\hosts')
     elif os.name == 'posix':
@@ -107,16 +110,10 @@ def hosts(request):
             data = fh.read()
         content = data.decode('utf-8')
 
-    return render(request, 'home/plain_text.html', {
-        'title': 'hosts',
-        'heading': path,
-        'content': content
-    })
+    return render_plain_text_content(request, u'hosts', path.decode('utf-8'), content)
 
 
 def users(request):
-    import os
-
     if os.name == 'posix':
         users_path = '/etc/passwd'
         with open(users_path, 'rb') as fh:
@@ -132,11 +129,7 @@ def users(request):
     else:
         content = 'Only available on Linux.'
 
-    return render(request, 'home/plain_text.html', {
-        'title': 'Users And Groups',
-        'heading': u'用户和用户组',
-        'content': content,
-    })
+    return render_plain_text_content(request, u'Users And Groups', u'用户和用户组', content)
 
 
 def pyinfo(request):
@@ -160,8 +153,20 @@ def pyinfo(request):
     return response
 
 
+def process(request):
+    import subprocess
+
+    if os.name == 'posix':
+        args = ['ps', 'aux']
+    else:
+        args = ['tasklist', '/V']
+    encoding = sys.getfilesystemencoding()
+    output = subprocess.check_output(args).decode(encoding)
+
+    return render_plain_text_content(request, u'Process List', u'进程列表', output)
+
+
 def files(request):
-    import os
     import urllib
     from .utils import format_time
 

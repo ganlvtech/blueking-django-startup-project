@@ -1,5 +1,5 @@
 # coding=utf-8
-from .utils import render_markdown_template, render_plain_text_template, render_special_markdown_template
+from .utils import render_markdown_template, render_plain_text_file, render_special_markdown_template
 
 
 def index(request):
@@ -25,4 +25,4 @@ def demos(request):
 
 
 def license(request):
-    return render_plain_text_template(request, u'License', u'The MIT License', 'LICENSE')
+    return render_plain_text_file(request, u'License', u'The MIT License', 'LICENSE')

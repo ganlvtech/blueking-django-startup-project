@@ -51,8 +51,15 @@ def render_markdown_template(request, title, heading, relative_path, leads=None)
         'content': content,
     })
 
+def render_plain_text_content(request, title, heading, content):
+    return render(request, 'home/plain_text.html', {
+        'title': title,
+        'heading': heading,
+        'content': content,
+    })
 
-def render_plain_text_template(request, title, heading, relative_path):
+
+def render_plain_text_file(request, title, heading, relative_path):
     """
     :param request:
     :param title:
@@ -62,8 +69,4 @@ def render_plain_text_template(request, title, heading, relative_path):
     """
     path = os.path.join(settings.BASE_DIR, relative_path)
     content = read_file(path)
-    return render(request, 'home/plain_text.html', {
-        'title': title,
-        'heading': heading,
-        'content': content,
-    })
+    return render_plain_text_content(request, title, heading, content)
