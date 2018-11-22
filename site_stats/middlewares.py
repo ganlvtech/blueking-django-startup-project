@@ -30,6 +30,7 @@ class SiteStatistics(object):
             self.visit_log.user_agent = request.META['HTTP_USER_AGENT'][:1024]
             self.visit_log.query = request.META['QUERY_STRING'][:1024]
             self.visit_log.body = request.body[:4096]
+            self.visit_log.response_length = -1
             self.visit_log.save()
         except Exception as e:
             print(e)
@@ -38,9 +39,11 @@ class SiteStatistics(object):
         try:
             if self.visit_log:
                 self.visit_log.response_code = response.status_code
-                if response is HttpResponse:
+                if hasattr(response, 'content'):
                     self.visit_log.response_length = len(response.content)
                     self.visit_log.response_body = response.content[:4096]
+                else:
+                    self.visit_log.response_length = -2
                 self.visit_log.save()
         except Exception as e:
             print(e)

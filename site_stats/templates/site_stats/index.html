@@ -55,6 +55,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Method</th>
+                        <th>Status</th>
                         <th>Path</th>
                         <th>IP</th>
                         <th>Time</th>
@@ -65,6 +66,7 @@
                         <tr>
                             <td>{{ log.id }}</td>
                             <td>{{ log.method }}</td>
+                            <td>{{ log.response_code }}</td>
                             <td>{{ log.path }}</td>
                             <td>{{ log.ip }}</td>
                             <td>{{ log.created_at }}</td>
