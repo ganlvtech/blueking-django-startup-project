@@ -11,7 +11,23 @@
 
 {% block main %}
     <div class="container">
-        <div class="content my-4">
+        <div class="content">
+            <h5 class="my-4">您的 <code>openid</code>, <code>openkey</code> 如下，你可以使用它们进行测试</h5>
+            <div class="my-4">
+                <div class="form-group row">
+                    <label for="form-input-openid" class="col-sm-2 col-form-label">openid</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control form-secret" id="form-input-openid" readonly value="{{ request.session.openid }}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="form-input-openkey" class="col-sm-2 col-form-label">openkey</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control form-secret" id="form-input-openkey" readonly value="{{ request.session.openkey }}">
+                    </div>
+                </div>
+            </div>
+            <h2 class="text-center my-4">接口列表</h2>
             <div class="markdown-body">
                 {{ content|safe }}
             </div>
@@ -19,5 +35,25 @@
     </div>
 {% endblock %}
 
+{% block body_append %}
+    <script>
+        document.querySelectorAll('.form-secret').forEach(function (item) {
+            var debounceTime = 0;
+            item.addEventListener('mouseover', function () {
+                this.type = 'text';
+                var _this = this;
+                debounceTime = Date.now() + 2000;
+                setTimeout(function () {
+                    if (Date.now() > debounceTime - 100) {
+                        _this.type = 'password';
+                    }
+                }, 2000);
+            });
+            item.addEventListener('mouseout', function () {
+                this.type = 'password';
+            })
+        });
+    </script>
+{% endblock %}
 
 
