@@ -31,6 +31,10 @@
 
     * [SMTP 发送邮件](/mail/)：使用 SMTP 协议发送邮件
 
+* `websocket_test` 模块
+
+    * [WebSocket 测试](/ws/)：~~你发送什么消息，服务器就返回什么消息（Nginx 服务器没有设置 Upgrade，所以不支持 WebSocket，此功能无效）~~
+
 * `django.contrib.admin` 模块
 
     * [后台管理](/admin/)：Django Admin

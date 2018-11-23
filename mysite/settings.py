@@ -26,7 +26,11 @@ SECRET_KEY = secrets.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'appdev.o.qcloud.com',
+    'django.qcloudapps.com',
+    'django.test.qcloudapps.com',
+]
 
 # Application definition
 
@@ -130,6 +134,11 @@ CSP_IMG_SRC = (
     'data:',
     'q1.qlogo.cn',
 )
+CSP_CONNECT_SRC = (
+    'ws://appdev.o.qcloud.com:8000',
+    'ws://django.qcloudapps.com',
+    'ws://django.test.qcloudapps.com',
+)
 
 # my site settings
 INSTALLED_APPS += (
@@ -179,3 +188,11 @@ MEDIA_URL = '/upload/'
 INSTALLED_APPS += ('send_email',)
 # https://docs.djangoproject.com/en/1.8/topics/email/
 EMAIL_USE_TLS = True
+
+# websocket_test
+INSTALLED_APPS += ('websocket_test',)
+try:
+    import uwsgi
+    WEBSOCKET_FACTORY_CLASS = 'dwebsocket.backends.uwsgi.factory.uWsgiWebSocketFactory'
+except ImportError:
+    pass

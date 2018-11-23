@@ -5,3 +5,4 @@ django-celery==3.2.1
 markdown
 django-csp
 requests
+dwebsocket

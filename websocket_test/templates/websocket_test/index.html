@@ -1,0 +1,79 @@
+{% extends "home/base.html" %}
+
+{% block title %}WebSocket - {% endblock %}
+
+{% block head_append %}
+    <style>
+        pre {
+            padding: 16px;
+            overflow: auto;
+            font-size: 85%;
+            line-height: 1.45;
+            background-color: #f6f8fa;
+            border-radius: 3px;
+            max-height: 30em;
+        }
+    </style>
+{% endblock %}
+
+{% block jumbotron %}
+    <h1>WebSocket</h1>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <div class="alert alert-warning">
+            由于蓝鲸的 Nginx 未设置 Connection Upgrade，所以本功能不可用
+        </div>
+        <form id="form" class="form-row">
+            <div class="col-md-8">
+                <label class="sr-only" for="form-input-send">发送消息</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="form-input-send">
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary px-5 mb-2">发送</button>
+            </div>
+        </form>
+        <pre id="content-container"><code id="content"></code></pre>
+    </div>
+{% endblock %}
+
+{% block body_append %}
+    <script>
+        var log = function (content) {
+            if (content instanceof Object) {
+                content = content.toString() + ':\n' + JSON.stringify(content);
+            }
+            var el = document.getElementById('content');
+            el.textContent += (new Date()).toLocaleString() + ': ' + content + '\n';
+            var container = document.getElementById('content-container');
+            container.scroll(0, container.scrollHeight);
+        };
+
+        var ws = new WebSocket(location.href.replace(/.*?:\/\//, 'ws://'));
+        ws.onopen = function (e) {
+            log('ws.onopen');
+            ws.send('Hello');
+            setInterval(function () {
+                ws.send('heartbeat');
+            }, 10000);
+
+            document.getElementById('form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                var el = document.getElementById('form-input-send');
+                ws.send(el.value);
+                el.value = '';
+            });
+        };
+        ws.onmessage = function (e) {
+            log('ws.onmessage');
+            log(e.data);
+        };
+        ws.onerror = function (e) {
+            log('ws.onerror');
+        };
+        ws.onclose = function (e) {
+            log('ws.onclose');
+        };
+    </script>
+{% endblock %}

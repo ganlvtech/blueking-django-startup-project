@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^go/', include('golang.urls', namespace='golang')),
     url(r'^bkapi/', include('blueking_api.urls', namespace='bkapi')),
     url(r'^mail/', include('send_email.urls', namespace='mail')),
+    url(r'^ws/', include('websocket_test.urls', namespace='ws')),
     url(r'^admin/', include(admin.site.urls)),
 ]
