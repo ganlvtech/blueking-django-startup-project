@@ -62,15 +62,16 @@ elif WSGI_ENV.endswith('testing'):
 else:
     RUN_MODE = 'DEVELOP'
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-    try:
-        import MySQLdb
-    except ImportError, e:
-        print "MySQLdb not installed, use PyMySQL instead."
-        import pymysql
+    if 'mysql' in DATABASES['default']['ENGINE']:
+        try:
+            import MySQLdb
+        except ImportError, e:
+            print "MySQLdb not installed, use PyMySQL instead."
+            import pymysql
 
-        pymysql.install_as_MySQLdb()
+            pymysql.install_as_MySQLdb()
 
-if BROKER_URL.startswith('django://'):
+if 'BROKER_URL' in locals() and BROKER_URL.startswith('django://'):
     if 'kombu.transport.django' not in INSTALLED_APPS:
         INSTALLED_APPS += ('kombu.transport.django',)
 else:

@@ -108,7 +108,41 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# djcelery
+# Content Security Policy
+# https://django-csp.readthedocs.io/en/latest/configuration.html
+MIDDLEWARE_CLASSES += ('csp.middleware.CSPMiddleware',)
+CSP_FRAME_ANCESTORS = 'bk.tencent.com'
+CSP_DEFAULT_SRC = (
+    "'self'",
+    "'unsafe-inline'",
+    'data:',
+    'o.qcloud.com',
+    'q1.qlogo.cn',
+)
+
+# my site settings
+INSTALLED_APPS += (
+    'home',
+    'myutils',
+    'golang',
+)
+TEMPLATES[0]['OPTIONS']['context_processors'] += (
+    'home.context_processors.blueking',
+    'home.context_processors.navbar',
+)
+
+# site_stats
+INSTALLED_APPS += ('site_stats',)
+MIDDLEWARE_CLASSES += ('site_stats.middlewares.SiteStatistics',)
+TEMPLATES[0]['OPTIONS']['context_processors'] += ('site_stats.context_processors.visit_count',)
+
+# blueking_api
+INSTALLED_APPS += ('blueking_api',)
+MIDDLEWARE_CLASSES += ('blueking_api.middlewares.CheckLogin',)
+
+# celery_test
+INSTALLED_APPS += ('celery_test',)
+MIDDLEWARE_CLASSES += ('blueking_api.middlewares.CheckLogin',)
 # http://docs.celeryproject.org/en/3.1/django/first-steps-with-django.html
 import djcelery
 
@@ -122,50 +156,15 @@ INSTALLED_APPS += ('kombu.transport.django',)
 # Celery beat periodic tasks
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
-# Content Security Policy
-# https://django-csp.readthedocs.io/en/latest/configuration.html
-MIDDLEWARE_CLASSES += ('csp.middleware.CSPMiddleware',)
-CSP_FRAME_ANCESTORS = 'bk.tencent.com'
-CSP_DEFAULT_SRC = (
-    "'self'",
-    "'unsafe-inline'",
-    'data:',
-    'o.qcloud.com',
-    'q1.qlogo.cn',
-)
-
-# File Upload
+# file_upload
+INSTALLED_APPS += ('file_upload',)
 # https://docs.djangoproject.com/en/1.8/topics/http/file-uploads/
 # https://docs.djangoproject.com/en/1.8/ref/settings/#media-root
 # https://docs.djangoproject.com/en/1.8/ref/settings/#media-url
 MEDIA_ROOT = os.path.join(BASE_DIR, 'USERRES')
 MEDIA_URL = '/upload/'
 
-# Email
+# send_email
+INSTALLED_APPS += ('send_email',)
 # https://docs.djangoproject.com/en/1.8/topics/email/
-EMAIL_HOST = secrets.EMAIL_HOST
-EMAIL_HOST_USER = secrets.EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = secrets.EMAIL_HOST_PASSWORD
-EMAIL_PORT = secrets.EMAIL_PORT
 EMAIL_USE_TLS = True
-
-# my site settings
-INSTALLED_APPS += (
-    'home',
-    'site_stats',
-    'myutils',
-    'celery_test',
-    'file_upload',
-    'golang',
-    'send_email',
-    'blueking_api',
-)
-MIDDLEWARE_CLASSES += (
-    'blueking_api.middlewares.CheckLogin',
-    'site_stats.middlewares.SiteStatistics',
-)
-TEMPLATES[0]['OPTIONS']['context_processors'] += (
-    'home.context_processors.blueking',
-    'home.context_processors.navbar',
-    'site_stats.context_processors.visit_count',
-)

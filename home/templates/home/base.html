@@ -28,7 +28,7 @@
                         <a class="nav-link" href="{% url 'home:docs' %}">文档</a>
                     </li>
                     <li class="nav-item{% if navbar.bkapi %} active{% endif %}">
-                        <a class="nav-link" href="{% url 'bkapi:index' %}">蓝鲸API</a>
+                        <a class="nav-link" href="/bkapi/">蓝鲸API</a>
                     </li>
                     <li class="nav-item{% if navbar.demos %} active{% endif %}">
                         <a class="nav-link" href="{% url 'home:demos' %}">演示</a>
@@ -85,7 +85,7 @@
                     <a class="nav-link" href="{% url 'home:license' %}">MIT License</a>
                 </li>
                 <li class="nav-item visit-count">
-                    <a class="nav-link" href="{% url 'stats:index' %}">Visit counter: {{ visit_count }}</a>
+                    <a class="nav-link" href="/stats/">Visit counter: {{ visit_count }}</a>
                 </li>
             </ul>
             <ul class="navbar-nav">

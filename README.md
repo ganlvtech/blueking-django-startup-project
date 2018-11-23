@@ -90,6 +90,8 @@ You can also clone this repo as a startup project or demo project. But what you 
 
 ## Run This Demo Project
 
+**This instruction only enable the `home` module. If you want to enable others, you need to install some other packages listed in `requirements.txt`.**
+
 ```bash
 git clone https://github.com/ganlvtech/blueking-django-startup-project.git
 pip install django==1.8.3

@@ -1,12 +1,14 @@
 # coding=utf-8
+import re
+
+from django.conf import settings
+from django.core.mail import send_mail
+from django.core.mail.backends.smtp import EmailBackend
 from django.shortcuts import render
+from django.template.loader import get_template
 
 
 def index(request):
-    import re
-    from django.core.mail import send_mail
-    from django.template.loader import get_template
-
     html_template = get_template('send_email/email.html')
     subject = 'Hello from django.qcloudapps.com'
     content = 'A Django Startup Project For Tencent Blueking.\n' \
@@ -24,11 +26,10 @@ def index(request):
             'email': html_content
         })
 
-    from django.conf import settings
-    host = request.POST.get('host', settings.EMAIL_HOST)
-    port = int(request.POST.get('port', settings.EMAIL_PORT))
-    username = request.POST.get('username', settings.EMAIL_HOST_USER)
-    password = request.POST.get('password', settings.EMAIL_HOST_PASSWORD)
+    host = request.POST.get('host')
+    port = int(request.POST.get('port'))
+    username = request.POST.get('username')
+    password = request.POST.get('password')
     email = request.POST.get('email')
     if not username or not password:
         return render(request, 'send_email/index.html', {
@@ -36,7 +37,6 @@ def index(request):
         })
 
     try:
-        from django.core.mail.backends.smtp import EmailBackend
         connection = EmailBackend(
             host=host,
             port=port,
