@@ -51,10 +51,7 @@
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" target="_blank" href="https://bk.tencent.com/campus/developer-center/">{{ request.session.nick_name }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" target="_blank" href="https://bk.tencent.com/campus/developer-center/"><img src="{{ request.session.avatar_url }}" class="avatar-img" alt="avatar"></a>
+                            <a class="nav-link" target="_blank" href="https://bk.tencent.com/campus/developer-center/"><span class="mr-2">{{ request.session.nick_name }}</span><img src="{{ request.session.avatar_url }}" class="avatar-img" alt="avatar"></a>
                         </li>
                     {% endif %}
                 </ul>
