@@ -29,11 +29,10 @@ def fix_dwebsocket_py2_compatible(func=None):
                     with open(path, 'w', encoding='utf-8') as f:
                         f.write(data)
                     count += 1
-        if count > 0:
+        if count > 0 and func:
             sys.exit(1)
         dwebsocket_py2_compatible_ok = True
-    if func:
-        return func
+    return func
 
 
 fix_dwebsocket_py2_compatible()
