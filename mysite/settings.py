@@ -114,9 +114,20 @@ MIDDLEWARE_CLASSES += ('csp.middleware.CSPMiddleware',)
 CSP_FRAME_ANCESTORS = 'bk.tencent.com'
 CSP_DEFAULT_SRC = (
     "'self'",
-    "'unsafe-inline'",
     'data:',
+)
+CSP_SCRIPT_SRC = (
+    "'self'",
+    "'unsafe-inline'",
     'o.qcloud.com',
+)
+CSP_STYLE_SRC = (
+    "'self'",
+    "'unsafe-inline'",
+)
+CSP_IMG_SRC = (
+    "'self'",
+    'data:',
     'q1.qlogo.cn',
 )
 
