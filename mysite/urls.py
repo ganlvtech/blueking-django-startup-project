@@ -17,23 +17,14 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-import blueking_api.urls
-import celery_test.urls
-import file_upload.urls
-import golang.urls
-import home.urls
-import myutils.urls
-import send_email.urls
-import site_stats.urls
-
 urlpatterns = [
-    url(r'^', include(home.urls, namespace='home')),
-    url(r'^utils/', include(myutils.urls, namespace='utils')),
-    url(r'^stats/', include(site_stats.urls, namespace='stats')),
-    url(r'^celery/', include(celery_test.urls, namespace='celery')),
-    url(r'^upload/', include(file_upload.urls, namespace='upload')),
-    url(r'^go/', include(golang.urls, namespace='golang')),
-    url(r'^bkapi/', include(blueking_api.urls, namespace='bkapi')),
-    url(r'^mail/', include(send_email.urls, namespace='mail')),
+    url(r'^', include('home.urls', namespace='home')),
+    url(r'^utils/', include('myutils.urls', namespace='utils')),
+    url(r'^stats/', include('site_stats.urls', namespace='stats')),
+    url(r'^celery/', include('celery_test.urls', namespace='celery')),
+    url(r'^upload/', include('file_upload.urls', namespace='upload')),
+    url(r'^go/', include('golang.urls', namespace='golang')),
+    url(r'^bkapi/', include('blueking_api.urls', namespace='bkapi')),
+    url(r'^mail/', include('send_email.urls', namespace='mail')),
     url(r'^admin/', include(admin.site.urls)),
 ]
