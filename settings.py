@@ -65,8 +65,7 @@ else:
     if 'mysql' in DATABASES['default']['ENGINE']:
         try:
             import MySQLdb
-        except ImportError, e:
-            print "MySQLdb not installed, use PyMySQL instead."
+        except ImportError:
             import pymysql
 
             pymysql.install_as_MySQLdb()
