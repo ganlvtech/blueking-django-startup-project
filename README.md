@@ -1,27 +1,59 @@
 # A Django Startup Project For Tencent Blueking
 
-A Simplified Django Settings For Tencent Blueking
+A Simplified Django Settings For [Tencent Blueking](https://bk.tencent.com/campus/)
 
-[Tencent Blueking Cloud Campus Version Developer Center](https://bk.tencent.com/campus/developer-center/)
+[Home Page](https://django.qcloudapps.com/)
 
-Online demos:
+## 中文文档
 
-* [Home Page](https://django.qcloudapps.com/)
-* [System Infomation](https://django.qcloudapps.com/utils/pyinfo/)
-* [A files explorer](https://django.qcloudapps.com/utils/files/)
-* [Server's /etc/hosts](https://django.qcloudapps.com/utils/hosts/)
-* [Django manage create superuser](https://django.qcloudapps.com/utils/createsuperuser/)
-* [Reset database](https://django.qcloudapps.com/utils/reset_db/)
-* [File Upload](https://django.qcloudapps.com/upload/)
-* [A counter using django celery that increases every minutes](https://django.qcloudapps.com/celery/)
-* [Increase the counter manually](https://django.qcloudapps.com/celery/add/)
-* [Run golang program](https://django.qcloudapps.com/go/)
-* [Send E-mail via SMTP](https://django.qcloudapps.com/mail/)
-* [Django Admin Site](https://django.qcloudapps.com/admin/)
+
+## Online Demos
+
+See [demos](https://django.qcloudapps.com/demos/)
+
+
+* `upload` module
+
+    * [File Upload](https://django.qcloudapps.com/upload/)
+
+* `myutils` module
+
+    * [System Infomation](https://django.qcloudapps.com/utils/pyinfo/)
+    * [Process Infomation](https://django.qcloudapps.com/utils/process/)
+    * [Files Explorer](https://django.qcloudapps.com/utils/files/)
+    * [`/etc/hosts`](https://django.qcloudapps.com/utils/hosts/)
+    * [`/etc/passwd` and `/etc/group`](https://django.qcloudapps.com/utils/user/)
+    * [Django manage create superuser](https://django.qcloudapps.com/utils/createsuperuser/)
+    * [Reset database](https://django.qcloudapps.com/utils/reset_db/)
+
+* `site_stats` module
+
+    * [Visit log](http://django.qcloudapps.com/stats/)
+
+* `golang` module
+
+    * [Run golang program](https://django.qcloudapps.com/go/)
+    * [Return with event-stream](https://django.qcloudapps.com/go/stream)
+    * [Run async and return PID](https://django.qcloudapps.com/go/nowait/)
+
+* `celery_test` module
+
+    * [A counter using django celery that increases every minutes](https://django.qcloudapps.com/celery/)
+    * [Increase the counter manually](https://django.qcloudapps.com/celery/add/)
+
+* `send_mail` module
+
+    * [Send E-mail via SMTP](https://django.qcloudapps.com/mail/)
+
+* `django.contrib.admin` module
+
+    * [Django Admin Site](https://django.qcloudapps.com/admin/)
 
 You may find that Blueking's default Django project has too many unused things and difficult to learn.
 
 The repo gives you a `settings.py`. It will make a pure django project runs on Blueking Cloud Platform.
+[Tencent Blueking Cloud Campus Version Developer Center](https://bk.tencent.com/campus/developer-center/)
+
 
 You can also clone this repo as a startup project or demo project. But what you may need is only that `settings.py`.
 
@@ -41,22 +73,18 @@ You can also clone this repo as a startup project or demo project. But what you 
 
         os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 
-4. Change `settings.py` `mysite` to `yoursite`
-
-        from mysite.settings import *
-
-5. Run server
+4. Run server
 
         python manage.py migrate
         python manage.py runserver
 
-6. You don't need to install `MySQL-python` locally. Try `PyMySQL`, which can be easily installed with pip.
+5. You don't need to install `MySQL-python` locally. Try `PyMySQL`, which can be easily installed with pip.
 
         pip install PyMySQL
 
-7. If you need to install some other packages with pip on the server, just add them to `requirements.txt`. The auto deploy script will do `pip install -r requirements.txt` before running the application.
+6. If you need to install some other packages with pip on the server, just add them to `requirements.txt`. The auto deploy script will do `pip install -r requirements.txt` before running the application.
 
-8. You must put static files under `/static/` and upload `/static/` to the server. Put them under each app's `static/` dir and only use it in development environment. And use `collectstatic` to move static files of each apps to `/static/` dir.
+7. You must put static files under `/static/` and upload `/static/` to the server. Put them under each app's `static/` dir and only use it in development environment. And use `collectstatic` to move static files of each apps to `/static/` dir.
 
         python manage.py collectstatic
 
@@ -85,7 +113,7 @@ pip install django-celery==3.2.1
 You can see the following lines at the end of `mysite/settings.py`.
 
 ```python
-import djcelery  # NOQA
+import djcelery
 djcelery.setup_loader()
 INSTALLED_APPS += ('djcelery',)
 BROKER_URL = 'django://'

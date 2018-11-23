@@ -110,11 +110,10 @@ STATIC_URL = '/static/'
 
 # djcelery
 # http://docs.celeryproject.org/en/3.1/django/first-steps-with-django.html
-import djcelery  # NOQA
+import djcelery
 
 djcelery.setup_loader()
 INSTALLED_APPS += ('djcelery',)
-# CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 # Django DB broker
 BROKER_URL = 'django://'
 INSTALLED_APPS += ('kombu.transport.django',)

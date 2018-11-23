@@ -31,6 +31,6 @@
 
     * [SMTP 发送邮件](/mail/)：使用 SMTP 协议发送邮件
 
-* Django Admin
+* `django.contrib.admin` 模块
 
     * [后台管理](/admin/)：Django Admin
