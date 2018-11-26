@@ -4,8 +4,7 @@ A Simplified Django Settings For [Tencent Blueking](https://bk.tencent.com/campu
 
 [Home Page](https://django.qcloudapps.com/)
 
-## 中文文档
-
+## [中文文档](docs/README.md)
 
 ## Online Demos
 
