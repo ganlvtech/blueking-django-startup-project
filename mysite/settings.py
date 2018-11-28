@@ -115,7 +115,10 @@ STATIC_URL = '/static/'
 # Content Security Policy
 # https://django-csp.readthedocs.io/en/latest/configuration.html
 MIDDLEWARE_CLASSES += ('csp.middleware.CSPMiddleware',)
-CSP_FRAME_ANCESTORS = 'bk.tencent.com'
+CSP_FRAME_ANCESTORS = (
+    'http://bk.tencent.com',
+    'https://bk.tencent.com',
+)
 CSP_DEFAULT_SRC = (
     "'self'",
     'data:',
