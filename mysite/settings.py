@@ -138,6 +138,8 @@ CSP_CONNECT_SRC = (
     'ws://appdev.o.qcloud.com:8000',
     'ws://django.qcloudapps.com',
     'ws://django.test.qcloudapps.com',
+    'wss://django.qcloudapps.com',
+    'wss://django.test.qcloudapps.com',
 )
 
 # my site settings
