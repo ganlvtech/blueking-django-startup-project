@@ -1,7 +1,7 @@
 ## django, celery, django-celery are pre-installed package in the PaaS container.
-django==1.8.3
-celery==3.1.18
-django-celery==3.2.1
+# django==1.8.3
+# celery==3.1.18
+# django-celery==3.2.1
 markdown
 django-csp
 requests
