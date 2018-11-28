@@ -1,12 +1,15 @@
 # coding=utf-8
+import cStringIO
 import os
 import sys
+from pprint import pprint
 
 from django.core.exceptions import ValidationError
 from django.http import FileResponse, HttpResponseForbidden, HttpResponseNotFound, HttpResponseNotModified
 from django.shortcuts import render
 
 from home.utils import render_plain_text_content
+from .utils.debug import get_safe_request
 
 
 def manage_createsuperuser(request):
@@ -164,6 +167,14 @@ def process(request):
     output = subprocess.check_output(args).decode(encoding)
 
     return render_plain_text_content(request, u'Process List', u'进程列表', output)
+
+
+def request_(request):
+    output = cStringIO.StringIO()
+    pprint(get_safe_request(request), stream=output)
+    content = output.getvalue()
+    output.close()
+    return render_plain_text_content(request, u'Request Attributes', u'请求信息', content)
 
 
 def files(request):

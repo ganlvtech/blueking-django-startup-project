@@ -6,6 +6,7 @@
 
     * [系统信息](/utils/pyinfo/)：列举全部系统信息
     * [进程信息](/utils/process/)：列举全部进程信息
+    * [请求信息](/utils/request/)：打印 Django Request 信息
     * [浏览文件](/utils/files/)：浏览从根目录开始的任意文件
     * [hosts](/utils/hosts/)：显示系统 `/etc/hosts` 文件
     * [用户和用户组](/utils/users/)：显示 Linux 系统的 `/etc/passwd` 和 `/etc/group` 文件
