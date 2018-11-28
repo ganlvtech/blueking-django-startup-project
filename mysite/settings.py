@@ -142,6 +142,12 @@ CSP_CONNECT_SRC = (
     'wss://django.test.qcloudapps.com',
 )
 
+# https://docs.djangoproject.com/en/1.8/ref/settings/#secure-proxy-ssl-header
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+if 'test' in os.environ.get('DJANGO_CONF_MODULE', '') or 'prod' in os.environ.get('DJANGO_CONF_MODULE', ''):
+    # https://docs.djangoproject.com/en/1.8/ref/settings/#secure-ssl-redirect
+    SECURE_SSL_REDIRECT = True
+
 # my site settings
 INSTALLED_APPS += (
     'home',
