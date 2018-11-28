@@ -50,7 +50,12 @@
             container.scroll(0, container.scrollHeight);
         };
 
-        var ws = new WebSocket(location.href.replace(/.*?:\/\//, 'ws://'));
+        if (location.href.startsWith('https')) {
+            wsUrl = location.href.replace(/.*?:\/\//, 'wss://');
+        } else {
+            wsUrl = location.href.replace(/.*?:\/\//, 'ws://');
+        }
+        var ws = new WebSocket(wsUrl);
         ws.onopen = function (e) {
             log('ws.onopen');
             ws.send('Hello');
