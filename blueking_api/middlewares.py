@@ -1,4 +1,6 @@
 # coding=utf-8
+import re
+
 from django.http import HttpResponseRedirect
 
 from .blueking_api import BlueKingApi
@@ -28,6 +30,8 @@ class CheckLogin(object):
             api_response = bkapi.get_user_info(openid, openkey)
             request.session['nick_name'] = api_response['data']['nick_name']
             request.session['avatar_url'] = api_response['data']['avatar_url']
+            if request.is_secure():
+                request.session['avatar_url'] = re.sub(r'^http://', 'https://', request.session['avatar_url'])
 
 
 class MustLogin(object):
@@ -54,6 +58,8 @@ class MustLogin(object):
             api_response = bkapi.get_user_info(openid, openkey)
             request.session['nick_name'] = api_response['data']['nick_name']
             request.session['avatar_url'] = api_response['data']['avatar_url']
+            if request.is_secure():
+                request.session['avatar_url'] = re.sub(r'^http://', 'https://', request.session['avatar_url'])
 
 
 class FetchUserPermission(object):

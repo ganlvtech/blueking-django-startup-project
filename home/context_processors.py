@@ -1,3 +1,5 @@
+import re
+
 from django.conf import settings
 
 
@@ -6,6 +8,8 @@ def blueking(request):
 
     try:
         result['REMOTE_STATIC_URL'] = settings.REMOTE_STATIC_URL
+        if request.is_secure():
+            result['REMOTE_STATIC_URL'] = re.sub(r'^http://', 'https://', result['REMOTE_STATIC_URL'])
     except AttributeError:
         pass
 
