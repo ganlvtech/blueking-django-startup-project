@@ -1,5 +1,6 @@
 import re
 
+from django.conf import settings
 from django.views.debug import CallableSettingWrapper
 
 HIDDEN_SETTINGS = re.compile('API|TOKEN|KEY|SECRET|PASS|SIGNATURE|PWD|BK_BROKER_URL')
@@ -39,3 +40,12 @@ def get_safe_request(request):
         if k.isupper():
             request_dict[k] = cleanse_setting(k, getattr(request, k))
     return request_dict
+
+
+def get_safe_settings():
+    "Returns a dictionary of the settings module, with sensitive settings blurred out."
+    settings_dict = {}
+    for k in dir(settings):
+        if k.isupper():
+            settings_dict[k] = cleanse_setting(k, getattr(settings, k))
+    return settings_dict

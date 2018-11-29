@@ -9,7 +9,7 @@ from django.http import FileResponse, HttpResponseForbidden, HttpResponseNotFoun
 from django.shortcuts import render
 
 from home.utils import render_plain_text_content
-from .utils.debug import get_safe_request
+from .utils.debug import get_safe_request, get_safe_settings
 
 
 def manage_createsuperuser(request):
@@ -169,14 +169,6 @@ def process(request):
     return render_plain_text_content(request, u'Process List', u'进程列表', output)
 
 
-def request_(request):
-    output = cStringIO.StringIO()
-    pprint(get_safe_request(request), stream=output)
-    content = output.getvalue()
-    output.close()
-    return render_plain_text_content(request, u'Request Attributes', u'请求信息', content)
-
-
 def files(request):
     import urllib
     from .utils import format_time
@@ -254,3 +246,15 @@ def files(request):
     return render(request, 'myutils/files.html', {
         'files': _files
     })
+
+
+def debug_(request):
+    output = cStringIO.StringIO()
+    output.write('request: =\n')
+    pprint(get_safe_request(request), stream=output)
+    output.write('\n\n\n')
+    output.write('settings =\n')
+    pprint(get_safe_settings(), stream=output)
+    content = output.getvalue()
+    output.close()
+    return render_plain_text_content(request, u'Debug Info', u'调试信息', content)
