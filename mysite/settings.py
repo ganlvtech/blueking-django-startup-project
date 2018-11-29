@@ -139,10 +139,15 @@ CSP_IMG_SRC = (
 )
 CSP_CONNECT_SRC = (
     'ws://appdev.o.qcloud.com:8000',
+    'http://appdev.o.qcloud.com:8000',
     'ws://django.qcloudapps.com',
-    'ws://django.test.qcloudapps.com',
     'wss://django.qcloudapps.com',
+    'http://django.qcloudapps.com',
+    'https://django.qcloudapps.com',
+    'ws://django.test.qcloudapps.com',
     'wss://django.test.qcloudapps.com',
+    'http://django.test.qcloudapps.com',
+    'https://django.test.qcloudapps.com',
 )
 
 # https://docs.djangoproject.com/en/1.8/ref/settings/#secure-proxy-ssl-header
