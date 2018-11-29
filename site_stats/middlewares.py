@@ -42,6 +42,8 @@ class SiteStatistics(object):
                 if hasattr(response, 'content'):
                     self.visit_log.response_length = len(response.content)
                     self.visit_log.response_body = response.content[:4096]
+                elif 'Content-Length' in response:
+                    self.visit_log.response_length = response['Content-Length']
                 else:
                     self.visit_log.response_length = -2
                 self.visit_log.save()
