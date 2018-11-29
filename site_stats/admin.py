@@ -8,7 +8,8 @@ class CounterAdmin(admin.ModelAdmin):
 
 
 class VisitLogAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user_id', 'method', 'path', 'ip', 'response_code', 'response_length', 'created_at')
+    list_display = ('id', 'user_id', 'method', 'path', 'query', 'ip', 'response_code', 'response_length', 'created_at')
+    ordering = ('-id',)
 
 
 admin.site.register(Counter, CounterAdmin)
