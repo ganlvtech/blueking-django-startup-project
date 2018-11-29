@@ -51,6 +51,7 @@ def render_markdown_template(request, title, heading, relative_path, leads=None)
         'content': content,
     })
 
+
 def render_plain_text_content(request, title, heading, content):
     return render(request, 'home/plain_text.html', {
         'title': title,
