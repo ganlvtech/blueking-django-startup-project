@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^users/$', views.users, name='users'),
     url(r'^createsuperuser/$', views.manage_createsuperuser, name='createsuperuser'),
     url(r'^reset_db/$', views.manage_reset_db, name='reset_db'),
+    url(r'^500/$', views.raise_500, name='raise_500'),
 ]

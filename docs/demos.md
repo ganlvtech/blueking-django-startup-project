@@ -12,6 +12,7 @@
     * [用户和用户组](/utils/users/)：显示 Linux 系统的 `/etc/passwd` 和 `/etc/group` 文件
     * [创建超级用户](/utils/createsuperuser/)：类似于执行 `manage.py createsuperuser`，仅在数据库没有超级管理员时才可以使用
     * [重置数据库](/utils/reset_db/)：输入超级管理员的用户名和密码，删除全部表，重新执行 migrate
+    * [500](/utils/500/)：raise 一个 Exception，引发 500 错误
 
 * `site_stats` 模块
 

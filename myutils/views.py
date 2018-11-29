@@ -258,3 +258,7 @@ def debug_(request):
     content = output.getvalue()
     output.close()
     return render_plain_text_content(request, u'Debug Info', u'调试信息', content)
+
+
+def raise_500(request):
+    raise Exception('Self raised 500 exception')
