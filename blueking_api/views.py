@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http.response import JsonResponse
 from django.shortcuts import render
 
 from home.utils import render_special_markdown_template

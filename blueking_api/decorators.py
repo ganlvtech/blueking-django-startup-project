@@ -1,5 +1,5 @@
 # coding=utf-8
-from django.http import HttpResponseRedirect
+from django.http.response import HttpResponseRedirect
 
 from .blueking_api import BlueKingApi
 from .middlewares import CheckLogin, FetchUserPermission, MustLogin

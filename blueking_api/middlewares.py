@@ -1,7 +1,7 @@
 # coding=utf-8
 import re
 
-from django.http import HttpResponseRedirect
+from django.http.response import HttpResponseRedirect
 
 from .blueking_api import BlueKingApi
 
