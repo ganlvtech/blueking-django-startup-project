@@ -30,8 +30,7 @@ import json
 import os
 import random
 import time
-import urllib
-import urlparse
+from six.moves import urllib
 
 import requests
 
@@ -128,7 +127,7 @@ class BlueKingApi:
                 "result": true
             }
         """
-        url = urlparse.urljoin(self.oauth_api_url, 'auth_api/token/')
+        url = urllib.parse.urljoin(self.oauth_api_url, 'auth_api/token/')
         params = {
             'app_code': self.app_code,
             'app_secret': self.app_secret,
@@ -157,7 +156,7 @@ class BlueKingApi:
                 "result": true
             }
         """
-        url = urlparse.urljoin(self.oauth_api_url, 'auth_api/token/')
+        url = urllib.parse.urljoin(self.oauth_api_url, 'auth_api/token/')
         params = {
             'app_code': self.app_code,
             'app_secret': self.app_secret,
@@ -188,7 +187,7 @@ class BlueKingApi:
                 "result": true
             }
         """
-        url = urlparse.urljoin(self.oauth_api_url, 'auth_api/refresh_token/')
+        url = urllib.parse.urljoin(self.oauth_api_url, 'auth_api/refresh_token/')
         params = {
             'app_code': self.app_code,
             'env_name': self.env_name,
@@ -228,7 +227,7 @@ class BlueKingApi:
                 'Data': data,
             })
         sorted_query = '&'.join(['%s=%s' % (i, params[i]) for i in sorted(params_to_sign)])
-        url_components = urlparse.urlparse(url)
+        url_components = urllib.parse.urlparse(url)
         raw_msg = '%s%s%s?%s' % (method, url_components.netloc, url_components.path, sorted_query)
         params.update({
             'Signature': self.signature(raw_msg),
@@ -265,7 +264,7 @@ class BlueKingApi:
         :return
         :rtype dict
         """
-        url = urlparse.urljoin(self.permission_api_url, 'permission/get_permissions/')
+        url = urllib.parse.urljoin(self.permission_api_url, 'permission/get_permissions/')
         params = {
             'app_code': self.app_code,
             'uin': openid,
@@ -281,7 +280,7 @@ class BlueKingApi:
         :param is_ajax: True|False 是否是 ajax 请求
         :return 权限不足提示页面的 URL
         """
-        params = urllib.urlencode({
+        params = urllib.parse.urlencode({
             'app_code': self.app_code,
             'run_mode': self.run_mode,
             'info': info,
@@ -316,7 +315,7 @@ class BlueKingApi:
                 'data': data,
             })
         sorted_query = '&'.join(['%s=%s' % (i, params[i]) for i in sorted(params_to_sign)])
-        url_components = urlparse.urlparse(url)
+        url_components = urllib.parse.urlparse(url)
         raw_msg = '%s%s?%s' % (method, url_components.path, sorted_query)
         params.update({
             'signature': self.signature(raw_msg),
@@ -330,10 +329,10 @@ class BlueKingApi:
         :param is_plain: True|False 是否使用内嵌式小窗登录
         :return 登录的 URL
         """
-        c_url = self.cross_domain_prefix + '?' + urllib.urlencode({
+        c_url = self.cross_domain_prefix + '?' + urllib.parse.urlencode({
             'tourl': redirect_url,
         })
-        params = urllib.urlencode({
+        params = urllib.parse.urlencode({
             'app_code': self.app_code,
             'c_url': c_url,
         })
@@ -360,7 +359,7 @@ class BlueKingApi:
                 "request_id": "0123456789abcdef0123456789abcdef"
             }
         """
-        url = urlparse.urljoin(self.component_system_host, 'compapi/oidb/get_user_info/')
+        url = urllib.parse.urljoin(self.component_system_host, 'compapi/oidb/get_user_info/')
         params = {
             'app_code': self.app_code,
             'app_secret': self.app_secret,
@@ -406,7 +405,7 @@ class BlueKingApi:
             uin = self.transform_uin(uin)
         except:
             pass
-        url = urlparse.urljoin(self.component_system_host, 'compapi/oidb/get_openid_openkey/')
+        url = urllib.parse.urljoin(self.component_system_host, 'compapi/oidb/get_openid_openkey/')
         params = {
             'app_code': self.app_code,
             'app_secret': self.app_secret,
@@ -429,7 +428,7 @@ class BlueKingApi:
                 "request_id": "0123456789abcdef0123456789abcdef"
             }
         """
-        url = urlparse.urljoin(self.component_system_host, 'compapi/oidb/verify_openid_openkey/')
+        url = urllib.parse.urljoin(self.component_system_host, 'compapi/oidb/verify_openid_openkey/')
         params = {
             'app_code': self.app_code,
             'app_secret': self.app_secret,
@@ -467,7 +466,7 @@ class BlueKingApi:
                 "request_id": "0123456789abcdef0123456789abcdef"
             }
         """
-        url = urlparse.urljoin(self.component_system_host, 'compapi/auth/get_auth_token/')
+        url = urllib.parse.urljoin(self.component_system_host, 'compapi/auth/get_auth_token/')
         data = {
             'app_code': self.app_code,
             'app_secret': self.app_secret,
@@ -497,7 +496,7 @@ class BlueKingApi:
         :return: 返回的 json
         :rtype: dict
         """
-        url = urlparse.urljoin(self.component_system_host, 'compapi/qcloud_cmsi/send_mail_for_external_user/')
+        url = urllib.parse.urljoin(self.component_system_host, 'compapi/qcloud_cmsi/send_mail_for_external_user/')
         data = {
             'access_token': access_token,
             'app_code': self.app_code,
@@ -532,7 +531,7 @@ class BlueKingApi:
         :return: 返回的 json
         :rtype: dict
         """
-        url = urlparse.urljoin(self.component_system_host, 'compapi/qcloud_cmsi/send_sms_for_external_user/')
+        url = urllib.parse.urljoin(self.component_system_host, 'compapi/qcloud_cmsi/send_sms_for_external_user/')
         data = {
             'access_token': access_token,
             'app_code': self.app_code,

@@ -1,5 +1,5 @@
 # coding=utf-8
-import cStringIO
+from six.moves import cStringIO
 import os
 import sys
 from pprint import pprint
@@ -170,7 +170,7 @@ def process(request):
 
 
 def files(request):
-    import urllib
+    from six.moves import urllib
     from .utils import format_time
 
     path = request.GET.get('path', os.getcwd())
@@ -209,7 +209,7 @@ def files(request):
             response["Content-Length"] = statobj.st_size
         if encoding:
             response["Content-Encoding"] = encoding
-        response['Content-Disposition'] = 'inline; filename=' + urllib.quote(os.path.basename(path).encode('utf-8'))
+        response['Content-Disposition'] = 'inline; filename=' + urllib.parse.quote(os.path.basename(path).encode('utf-8'))
         return response
 
     _files = []
@@ -218,7 +218,7 @@ def files(request):
     file_stat = os.stat(full_path)
 
     _files.append({
-        'path': urllib.quote(full_path.encode('utf-8')),
+        'path': urllib.parse.quote(full_path.encode('utf-8')),
         'is_dir': True,
         'name': '..',
         'uid': file_stat.st_uid,
@@ -233,7 +233,7 @@ def files(request):
         full_path = os.path.join(path, filename)
         file_stat = os.stat(full_path)
         _files.append({
-            'path': urllib.quote(full_path.encode('utf-8')),
+            'path': urllib.parse.quote(full_path.encode('utf-8')),
             'is_dir': os.path.isdir(full_path),
             'name': filename,
             'uid': file_stat.st_uid,

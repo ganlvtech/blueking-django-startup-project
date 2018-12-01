@@ -25,6 +25,7 @@ def stream(request):
         while True:
             line = proc.stdout.readline()
             if line != '':
+                line = line.decode('utf-8')
                 yield 'data: {}\n\n'.format(line)
             else:
                 break
