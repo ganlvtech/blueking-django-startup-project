@@ -1,8 +1,6 @@
 # coding=utf-8
-from six.moves import cStringIO
 import os
 import sys
-from pprint import pprint
 
 from django.core.exceptions import ValidationError
 from django.http import FileResponse, HttpResponseForbidden, HttpResponseNotFound, HttpResponseNotModified
@@ -249,14 +247,10 @@ def files(request):
 
 
 def debug_(request):
-    output = cStringIO.StringIO()
-    output.write('request: =\n')
-    pprint(get_safe_request(request), stream=output)
-    output.write('\n\n\n')
-    output.write('settings =\n')
-    pprint(get_safe_settings(), stream=output)
-    content = output.getvalue()
-    output.close()
+    import pprint
+
+    content = 'request =\n' + pprint.pformat(get_safe_request(request)) + \
+              '\n\n\nsettings =\n' + pprint.pformat(get_safe_settings())
     return render_plain_text_content(request, u'Debug Info', u'调试信息', content)
 
 
