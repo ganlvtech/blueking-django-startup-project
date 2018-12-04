@@ -13,15 +13,13 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
-from . import secrets
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = secrets.SECRET_KEY
+SECRET_KEY = os.environ.get('BK_SECRET_KEY', 'DEVELOP_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -88,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'django',
         'USER': 'django',
-        'PASSWORD': secrets.DATABASES['default']['PASSWORD'],
+        'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }

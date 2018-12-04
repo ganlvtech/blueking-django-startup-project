@@ -142,7 +142,6 @@ def users(request):
 def pyinfo(request):
     import platform
     import re
-    from mysite import secrets
     from .utils import my_pyinfo
 
     response = render(request, 'myutils/pyinfo.html', {
@@ -151,10 +150,14 @@ def pyinfo(request):
     })
 
     html = response.content
-    if request.GET.get('password') != secrets.PYINFO_PASSWORD:
+
+    PYINFO_PASSWORD = os.environ.get('BKAPP_PYINFO_PASSWORD')
+    if request.GET.get('password') != PYINFO_PASSWORD:
         html = re.sub(r'(BK_APP_PWD</td>\s*?<td.*?>)(.*?)(</td>)', '\\1***\\3', html)
         html = re.sub(r'(amqp://.*?:)(.*?)(@)', '\\1***\\3', html)
         html = re.sub(r'(BK_SECRET_KEY</td>\s*?<td.*?>)(.*?)(</td>)', '\\1***\\3', html)
+        html = re.sub(r'(BKAPP_.*?</td>\s*?<td.*?>)(.*?)(</td>)', '\\1***\\3', html)
+
     response.content = html
 
     return response
