@@ -1,20 +1,31 @@
 # coding=utf-8
+import base64
 import os
+import platform
+import pprint
+import re
+import stat
+import subprocess
 import sys
 
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
+from django.core.management import execute_from_command_line
+from django.db import connection
 from django.http import FileResponse, HttpResponseForbidden, HttpResponseNotFound, HttpResponseNotModified
 from django.shortcuts import render
+from django.utils.http import http_date
+from django.views.static import was_modified_since
+from six.moves import urllib
 
 from blueking_api.decorators import must_login_blue_king
 from home.utils import render_plain_text_content
+from .utils import format_time, guess_type, my_pyinfo
 from .utils.debug import get_safe_request, get_safe_settings
 
 
 @must_login_blue_king
 def manage_createsuperuser(request):
-    from django.contrib.auth import get_user_model
-
     User = get_user_model()
 
     if User.objects.filter(is_superuser=1).count() > 0:
@@ -48,9 +59,6 @@ def manage_createsuperuser(request):
 
 @must_login_blue_king
 def manage_reset_db(request):
-    from django.db import connection
-    from django.core.management import execute_from_command_line
-
     reset_database_password = os.environ.get('BKAPP_RESET_DATABASE_PASSWORD', None)
     if not reset_database_password:
         return render(request, 'myutils/manage_reset_db.html', {
@@ -138,10 +146,6 @@ def users(request):
 
 @must_login_blue_king
 def pyinfo(request):
-    import platform
-    import re
-    from .utils import my_pyinfo
-
     response = render(request, 'myutils/pyinfo.html', {
         'py_version': platform.python_version(),
         'tables': my_pyinfo()
@@ -163,8 +167,6 @@ def pyinfo(request):
 
 @must_login_blue_king
 def process(request):
-    import subprocess
-
     if os.name == 'posix':
         args = ['ps', 'aux']
     else:
@@ -177,8 +179,6 @@ def process(request):
 
 @must_login_blue_king
 def netstat(request):
-    import subprocess
-
     if os.name == 'posix':
         args = ['netstat', '-anp']
     else:
@@ -191,14 +191,11 @@ def netstat(request):
 
 @must_login_blue_king
 def files(request):
-    from six.moves import urllib
-    from .utils import format_time
-
     path = request.GET.get('path', os.getcwd())
     abs_path = os.path.abspath(path)
 
     if not os.path.exists(abs_path):
-        import base64
+
         try:
             path = base64.b64decode(path)
             abs_path = os.path.abspath(path)
@@ -213,11 +210,6 @@ def files(request):
         return HttpResponseForbidden()
 
     if os.path.isfile(path):
-        import stat
-        from django.utils.http import http_date
-        from django.views.static import was_modified_since
-        from .utils import guess_type
-
         statobj = os.stat(path)
         if not was_modified_since(request.META.get('HTTP_IF_MODIFIED_SINCE'), statobj.st_mtime, statobj.st_size):
             return HttpResponseNotModified()
@@ -271,8 +263,6 @@ def files(request):
 
 @must_login_blue_king
 def debug_(request):
-    import pprint
-
     content = 'request =\n' + pprint.pformat(get_safe_request(request)) + \
               '\n\n\nsettings =\n' + pprint.pformat(get_safe_settings())
     return render_plain_text_content(request, u'Debug Info', u'调试信息', content)

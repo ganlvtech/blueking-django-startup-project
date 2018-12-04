@@ -1,7 +1,14 @@
+import os
+
 from django.core.exceptions import ValidationError
+from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import render
+
+from mysite import settings
+from myutils.utils import format_time
+from .utils import sanitize_path
 
 
 def index(request):
@@ -9,8 +16,6 @@ def index(request):
         """Simple File Upload
         https://github.com/sibtc/simple-file-upload
         """
-        from django.core.files.storage import FileSystemStorage
-
         myfile = request.FILES['file']
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
@@ -20,9 +25,6 @@ def index(request):
             'uploaded_file_url': uploaded_file_url,
         })
 
-    import os
-    from myutils.utils import format_time
-    from mysite import settings
     document_root = settings.MEDIA_ROOT.decode('utf-8')
 
     _files = []
@@ -47,10 +49,6 @@ def index(request):
 def delete(request):
     if request.method != 'DELETE' and (request.method != 'POST' or request.POST.get('_method') != 'DELETE'):
         return HttpResponseRedirect(reverse('upload:index'))
-
-    import os
-    from mysite import settings
-    from .utils import sanitize_path
 
     path = request.POST.get('path')
     if not path:

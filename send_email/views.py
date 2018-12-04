@@ -1,7 +1,6 @@
 # coding=utf-8
 import re
 
-from django.conf import settings
 from django.core.mail import send_mail
 from django.core.mail.backends.smtp import EmailBackend
 from django.shortcuts import render

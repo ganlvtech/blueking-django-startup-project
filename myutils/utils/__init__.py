@@ -1,5 +1,12 @@
+import mimetypes
+from datetime import datetime
+from uuid import getnode as get_mac
+
+from myutils.utils.ip import get_ip
+from .pyinfo import section_compression, section_environ, section_ldap, section_multimedia, section_os_internals, section_packages, section_py_internals, section_server_info, section_socket, section_system
+
+
 def format_time(timestamp):
-    from datetime import datetime
     return datetime.utcfromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')
 
 
@@ -7,16 +14,12 @@ def my_pyinfo():
     def section_custom():
         data = []
 
-        from myutils.utils.ip import get_ip
         data.append(('WAN IP Address', get_ip))
 
-        from uuid import getnode as get_mac
         mac = get_mac()
         data.append(('MAC Address', hex(mac)))
 
         return 'Custom Info', data
-
-    from .pyinfo import section_server_info, section_system, section_py_internals, section_os_internals, section_environ, section_compression, section_ldap, section_socket, section_multimedia, section_packages
 
     data = None
     allow_import = True
@@ -39,8 +42,6 @@ def my_pyinfo():
 
 
 def guess_type(path):
-    import mimetypes
-
     content_type, encoding = mimetypes.guess_type(path)
 
     if not content_type:
