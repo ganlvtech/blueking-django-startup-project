@@ -20,7 +20,7 @@ from six.moves import urllib
 
 from blueking_api.decorators import must_login_blue_king
 from home.utils import render_plain_text_content
-from .utils import format_time, guess_type, my_pyinfo
+from .utils import format_time, guess_type, my_pyinfo, is_protected_path
 from .utils.debug import get_safe_request, get_safe_settings
 
 
@@ -195,7 +195,6 @@ def files(request):
     abs_path = os.path.abspath(path)
 
     if not os.path.exists(abs_path):
-
         try:
             path = base64.b64decode(path)
             abs_path = os.path.abspath(path)
@@ -206,8 +205,10 @@ def files(request):
 
     path = abs_path
 
-    if 'secret' in path:
-        return HttpResponseForbidden()
+    if is_protected_path(path):
+        files_password = os.environ.get('BKAPP_FILES_PASSWORD', None)
+        if not files_password or request.GET.get('password', '') != files_password:
+            return HttpResponseForbidden()
 
     if os.path.isfile(path):
         statobj = os.stat(path)

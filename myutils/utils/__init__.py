@@ -65,3 +65,18 @@ def guess_type(path):
         content_type += '; charset=utf-8'
 
     return content_type, encoding
+
+
+def is_protected_path(path):
+    protected_files = (
+        'etc',
+        'proc',
+        'log',
+        'pass',
+        'pwd',
+        'shadow',
+    )
+    for part in protected_files:
+        if part in path:
+            return True
+    return False
