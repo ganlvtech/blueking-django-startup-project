@@ -151,8 +151,8 @@ def pyinfo(request):
 
     html = response.content
 
-    PYINFO_PASSWORD = os.environ.get('BKAPP_PYINFO_PASSWORD')
-    if request.GET.get('password') != PYINFO_PASSWORD:
+    pyinfo_password = os.environ.get('BKAPP_PYINFO_PASSWORD', None)
+    if not pyinfo_password or request.GET.get('password', '') != pyinfo_password:
         html = re.sub(r'(BK_APP_PWD</td>\s*?<td.*?>)(.*?)(</td>)', '\\1***\\3', html)
         html = re.sub(r'(amqp://.*?:)(.*?)(@)', '\\1***\\3', html)
         html = re.sub(r'(BK_SECRET_KEY</td>\s*?<td.*?>)(.*?)(</td>)', '\\1***\\3', html)
