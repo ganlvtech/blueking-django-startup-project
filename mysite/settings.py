@@ -161,7 +161,7 @@ INSTALLED_APPS += (
     'golang',
 )
 TEMPLATES[0]['OPTIONS']['context_processors'] += (
-    'home.context_processors.blueking',
+    'home.context_processors.remote_static_url',
     'home.context_processors.navbar',
 )
 

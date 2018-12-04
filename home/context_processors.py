@@ -3,7 +3,7 @@ import re
 from django.conf import settings
 
 
-def blueking(request):
+def remote_static_url(request):
     result = {}
 
     try:
