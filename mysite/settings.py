@@ -169,7 +169,10 @@ TEMPLATES[0]['OPTIONS']['context_processors'] += (
 
 # site_stats
 INSTALLED_APPS += ('site_stats',)
-MIDDLEWARE_CLASSES += ('site_stats.middlewares.SiteStatistics',)
+MIDDLEWARE_CLASSES += (
+    'site_stats.middlewares.SiteStatistics',
+    'site_stats.middlewares.BanUser',
+)
 TEMPLATES[0]['OPTIONS']['context_processors'] += ('site_stats.context_processors.visit_count',)
 
 # blueking_api
@@ -209,6 +212,7 @@ EMAIL_USE_TLS = True
 INSTALLED_APPS += ('websocket_test',)
 try:
     import uwsgi
+
     WEBSOCKET_FACTORY_CLASS = 'dwebsocket.backends.uwsgi.factory.uWsgiWebSocketFactory'
 except ImportError:
     pass

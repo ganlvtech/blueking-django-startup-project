@@ -1,6 +1,7 @@
-from django.http import HttpResponse
+from django.http.response import HttpResponseForbidden
 
 from .models import Counter, VisitLog
+from .utils import get_client_ip
 
 
 class SiteStatistics(object):
@@ -25,7 +26,6 @@ class SiteStatistics(object):
             self.visit_log.user_info = user_info[:255]
             self.visit_log.path = request.path[:1024]
             self.visit_log.method = request.method
-            from site_stats.utils import get_client_ip
             self.visit_log.ip = get_client_ip(request)
             self.visit_log.user_agent = request.META['HTTP_USER_AGENT'][:1024]
             self.visit_log.query = request.META['QUERY_STRING'][:1024]
@@ -51,3 +51,26 @@ class SiteStatistics(object):
             print(e)
 
         return response
+
+
+class BanUser(object):
+    ban_openid_list = (
+        "144115212352913603",
+    )
+    ban_nick_name_list = (
+        "453413024",
+    )
+    ban_ip_list = (
+        "116.228.88.252",
+    )
+
+    def process_request(self, request):
+        ip = get_client_ip(request)
+        if ip in self.ban_ip_list:
+            return HttpResponseForbidden('Banned IP')
+        openid = request.session.get('openid')
+        if openid and openid in self.ban_openid_list:
+            return HttpResponseForbidden('Banned openid')
+        nick_name = request.session.get('nick_name')
+        if nick_name and nick_name in self.ban_nick_name_list:
+            return HttpResponseForbidden('Banned QQ')

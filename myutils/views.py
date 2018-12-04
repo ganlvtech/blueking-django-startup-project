@@ -6,10 +6,12 @@ from django.core.exceptions import ValidationError
 from django.http import FileResponse, HttpResponseForbidden, HttpResponseNotFound, HttpResponseNotModified
 from django.shortcuts import render
 
+from blueking_api.decorators import must_login_blue_king
 from home.utils import render_plain_text_content
 from .utils.debug import get_safe_request, get_safe_settings
 
 
+@must_login_blue_king
 def manage_createsuperuser(request):
     from django.contrib.auth import get_user_model
 
@@ -44,6 +46,7 @@ def manage_createsuperuser(request):
     })
 
 
+@must_login_blue_king
 def manage_reset_db(request):
     from django.db import connection
     from django.core.management import execute_from_command_line
@@ -96,6 +99,7 @@ def manage_reset_db(request):
     })
 
 
+@must_login_blue_king
 def hosts(request):
     if os.name == 'nt':
         path = os.path.join(os.getenv('SYSTEMROOT', r'C:\Windows'), r'System32\drivers\etc\hosts')
@@ -114,6 +118,7 @@ def hosts(request):
     return render_plain_text_content(request, u'hosts', path.decode('utf-8'), content)
 
 
+@must_login_blue_king
 def users(request):
     if os.name == 'posix':
         users_path = '/etc/passwd'
@@ -133,6 +138,7 @@ def users(request):
     return render_plain_text_content(request, u'Users And Groups', u'用户和用户组', content)
 
 
+@must_login_blue_king
 def pyinfo(request):
     import platform
     import re
@@ -154,6 +160,7 @@ def pyinfo(request):
     return response
 
 
+@must_login_blue_king
 def process(request):
     import subprocess
 
@@ -167,6 +174,7 @@ def process(request):
     return render_plain_text_content(request, u'Process List', u'进程列表', output)
 
 
+@must_login_blue_king
 def netstat(request):
     import subprocess
 
@@ -180,6 +188,7 @@ def netstat(request):
     return render_plain_text_content(request, u'Network Statistics', u'网络统计', output)
 
 
+@must_login_blue_king
 def files(request):
     from six.moves import urllib
     from .utils import format_time
@@ -259,6 +268,7 @@ def files(request):
     })
 
 
+@must_login_blue_king
 def debug_(request):
     import pprint
 
