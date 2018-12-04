@@ -50,19 +50,20 @@ def manage_createsuperuser(request):
 def manage_reset_db(request):
     from django.db import connection
     from django.core.management import execute_from_command_line
-    from django.contrib.auth import get_user_model
-    from django.contrib.auth.hashers import check_password
+
+    reset_database_password = os.environ.get('BKAPP_RESET_DATABASE_PASSWORD', None)
+    if not reset_database_password:
+        return render(request, 'myutils/manage_reset_db.html', {
+            'not_allow': True
+        })
 
     if request.method == 'GET':
         return render(request, 'myutils/manage_reset_db.html')
 
-    username = request.POST.get('username')
     password = request.POST.get('password')
     confirm = request.POST.get('confirm')
 
     errors = []
-    if not username:
-        errors.append(ValidationError('username must be set'))
     if not password:
         errors.append(ValidationError('password must be set'))
     if not confirm:
@@ -75,10 +76,7 @@ def manage_reset_db(request):
             'confirm_wrong': True
         })
 
-    User = get_user_model()
-
-    user = User.objects.filter(is_superuser=1, username=username).first()
-    if not user or not check_password(password, user.password):
+    if request.GET.get('password', '') != reset_database_password:
         return render(request, 'myutils/manage_reset_db.html', {
             'password_wrong': True
         })
