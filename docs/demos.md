@@ -5,7 +5,8 @@
 * `myutils` 模块
 
     * [系统信息](/utils/pyinfo/)：列举全部系统信息
-    * [进程信息](/utils/process/)：列举全部进程信息
+    * [进程信息](/utils/process/)：列举全部进程信息 `ps aux`
+    * [网络统计](/utils/netstat/)：列举全部网络端口信息 `netstat -anp`
     * [Debug 信息](/utils/debug/)：打印 Django Request 和 Django Setting 信息
     * [浏览文件](/utils/files/)：浏览从根目录开始的任意文件
     * [hosts](/utils/hosts/)：显示系统 `/etc/hosts` 文件

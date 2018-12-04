@@ -167,6 +167,19 @@ def process(request):
     return render_plain_text_content(request, u'Process List', u'进程列表', output)
 
 
+def netstat(request):
+    import subprocess
+
+    if os.name == 'posix':
+        args = ['netstat', '-anp']
+    else:
+        args = ['netstat', '-ano']
+    encoding = sys.getfilesystemencoding()
+    output = subprocess.check_output(args).decode(encoding)
+
+    return render_plain_text_content(request, u'Network Statistics', u'网络统计', output)
+
+
 def files(request):
     from six.moves import urllib
     from .utils import format_time

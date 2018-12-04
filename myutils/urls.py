@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     url(r'^pyinfo/$', views.pyinfo, name='pyinfo'),
     url(r'^process/$', views.process, name='process'),
+    url(r'^netstat/$', views.netstat, name='netstat'),
     url(r'^debug/$', views.debug_, name='debug'),
     url(r'^files/$', views.files, name='files'),
     url(r'^hosts/$', views.hosts, name='hosts'),
