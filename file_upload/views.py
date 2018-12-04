@@ -50,7 +50,7 @@ def delete(request):
 
     import os
     from mysite import settings
-    from .helpers import sanitize_path
+    from .utils import sanitize_path
 
     path = request.POST.get('path')
     if not path:
