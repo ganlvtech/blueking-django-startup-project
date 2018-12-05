@@ -19,9 +19,9 @@ See [demos](https://django.qcloudapps.com/demos/)
 
     * [System Infomation](https://django.qcloudapps.com/utils/pyinfo/)
     * [Process Infomation](https://django.qcloudapps.com/utils/process/)
+    * [Network Statistics](https://django.qcloudapps.com/utils/netstat/)
+    * [Django Request And Django Setting](https://django.qcloudapps.com/utils/debug/)
     * [Files Explorer](https://django.qcloudapps.com/utils/files/)
-    * [`/etc/hosts`](https://django.qcloudapps.com/utils/hosts/)
-    * [`/etc/passwd` and `/etc/group`](https://django.qcloudapps.com/utils/user/)
     * [Django manage create superuser](https://django.qcloudapps.com/utils/createsuperuser/)
     * [Reset database](https://django.qcloudapps.com/utils/reset_db/)
 
@@ -51,8 +51,8 @@ See [demos](https://django.qcloudapps.com/demos/)
 You may find that Blueking's default Django project has too many unused things and difficult to learn.
 
 The repo gives you a `settings.py`. It will make a pure django project runs on Blueking Cloud Platform.
-[Tencent Blueking Cloud Campus Version Developer Center](https://bk.tencent.com/campus/developer-center/)
 
+[Tencent Blueking Cloud Campus Version Developer Center](https://bk.tencent.com/campus/developer-center/)
 
 You can also clone this repo as a startup project or demo project. But what you may need is only that `settings.py`.
 
@@ -99,7 +99,9 @@ pip install django==1.8.3
 pip install PyMySQL
 ```
 
-Edit `mysite/settings.py` and `mysite/secrets.py`.
+Edit `mysite/settings.py`.
+
+Apply migrations and run server.
 
 ```bash
 python manage.py migrate

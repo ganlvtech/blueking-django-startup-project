@@ -106,45 +106,6 @@ def manage_reset_db(request):
 
 
 @must_login_blue_king
-def hosts(request):
-    if os.name == 'nt':
-        path = os.path.join(os.getenv('SYSTEMROOT', r'C:\Windows'), r'System32\drivers\etc\hosts')
-    elif os.name == 'posix':
-        path = '/etc/hosts'
-    else:
-        path = None
-
-    if path is None or not os.path.isfile(path):
-        content = ''
-    else:
-        with open(path, 'rb') as fh:
-            data = fh.read()
-        content = data.decode('utf-8')
-
-    return render_plain_text_content(request, u'hosts', path.decode('utf-8'), content)
-
-
-@must_login_blue_king
-def users(request):
-    if os.name == 'posix':
-        users_path = '/etc/passwd'
-        with open(users_path, 'rb') as fh:
-            data = fh.read()
-        users = data.decode('utf-8')
-
-        groups_path = '/etc/group'
-        with open(groups_path, 'rb') as fh:
-            data = fh.read()
-        groups = data.decode('utf-8')
-
-        content = '{}\n\n{}\n\n\n{}\n\n{}'.format(users_path, users, groups_path, groups)
-    else:
-        content = 'Only available on Linux.'
-
-    return render_plain_text_content(request, u'Users And Groups', u'用户和用户组', content)
-
-
-@must_login_blue_king
 def pyinfo(request):
     response = render(request, 'myutils/pyinfo.html', {
         'py_version': platform.python_version(),
