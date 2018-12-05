@@ -65,8 +65,7 @@ You can also clone this repo as a startup project or demo project. But what you 
 
 2. Get this `settings.py` script
 
-        wget https://raw.githubusercontent.com/ganlvtech/blueking-django-startup-project/master/settings.py
-
+        wget https://django.qcloudapps.com/settings.py
 
 3. Change `manage.py` `DJANGO_SETTINGS_MODULE`
 
@@ -91,8 +90,11 @@ You can also clone this repo as a startup project or demo project. But what you 
 
 **This instruction only enable the `home` module. If you want to enable others, you need to install some other packages listed in `requirements.txt`.**
 
+First, clone this repo or download the zip of this project.
+
+Then, install `django` and `PyMySQL`.
+
 ```bash
-git clone https://github.com/ganlvtech/blueking-django-startup-project.git
 pip install django==1.8.3
 pip install PyMySQL
 ```

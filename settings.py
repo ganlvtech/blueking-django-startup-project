@@ -8,7 +8,7 @@ Usage
 ```bash
 django-admin startproject mysite
 cd mysite/
-wget https://raw.githubusercontent.com/ganlvtech/blueking-django-startup-project/master/settings.py
+wget https://django.qcloudapps.com/settings.py
 ```
 
 Change `manage.py` `DJANGO_SETTINGS_MODULE` value `mysite.settings` to `settings`
