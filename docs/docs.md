@@ -76,9 +76,7 @@ pip install django==1.8.3
 pip install PyMySQL
 ```
 
-复制一份 `mysite/settings.py` 和 `mysite/secrets.py`，并修改其中的一些配置项目
-
-然后迁移并运行数据库
+修改其中的一些配置项目，然后迁移数据库、运行服务器
 
 ```bash
 python manage.py migrate
