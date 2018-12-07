@@ -3,7 +3,7 @@ import re
 from django.conf import settings
 from django.views.debug import CallableSettingWrapper
 
-HIDDEN_SETTINGS = re.compile('API|TOKEN|KEY|SECRET|PASS|SIGNATURE|PWD|BK_BROKER_URL|BKAPP_')
+HIDDEN_SETTINGS = re.compile('API|TOKEN|KEY|SECRET|PASS|SIGNATURE|PWD|BROKER_URL')
 
 CLEANSED_SUBSTITUTE = '********************'
 
